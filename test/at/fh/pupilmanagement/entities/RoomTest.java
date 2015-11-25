@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.eclipse.persistence.queries.ReadAllQuery;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,8 +65,11 @@ public class RoomTest {
 		emfactory.close();
 	}
 
-	@Test
+	/* todo: add assert statements
+	 * 
+	 * @Test
 	public void testAdd() {
+		
 		EntityManagerFactory emfactory = Persistence
 				.createEntityManagerFactory("PupilManagement");
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -81,10 +83,7 @@ public class RoomTest {
 		entitymanager.persist(newRoom);
 		entitymanager.getTransaction().commit();
 		
-		
-		
 		entitymanager.close();
 		emfactory.close();
-
-	}
+	}*/
 }
