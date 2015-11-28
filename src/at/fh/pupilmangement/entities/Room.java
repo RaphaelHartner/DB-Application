@@ -1,27 +1,13 @@
 package at.fh.pupilmangement.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity @Table(name="Room")
-public class Room {
+public class Room extends BaseEntity{
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	private String name;
 	private int maxPupils;
 	private String position;
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	public int getMaxPupils() {
 		return maxPupils;
@@ -39,6 +25,6 @@ public class Room {
 	
 	@Override
 	public String toString(){
-		return "Room : " + getName() + ", " + getPosition();
+		return "Room: " + getPosition();
 	}
 }
