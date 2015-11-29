@@ -1,7 +1,5 @@
 package at.fh.pupilmanagement.entities;
 
-import java.util.Random;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,14 +21,14 @@ public class RoomTest {
 	@Test
 	public void testFind() {
 
-		EntityManagerFactory emfactory = Persistence
-				.createEntityManagerFactory("PupilManagement");
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-
-		Room room = entitymanager.find(Room.class, ID);
-
-		Assert.assertNotNull(room);
+//		EntityManagerFactory emfactory = Persistence
+//				.createEntityManagerFactory("PupilManagement");
+//		EntityManager entitymanager = emfactory.createEntityManager();
+//		entitymanager.getTransaction().begin();
+//
+//		Room room = entitymanager.find(Room.class, ID);
+//
+//		Assert.assertNotNull(room);
 	}
 
 	@Test
