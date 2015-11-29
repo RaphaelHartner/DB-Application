@@ -9,6 +9,6 @@ public class ClassRoom extends Room{
 
 	@Override
 	public String toString() {
-		return "Classroom: " + getPosition();
+		return "Classroom: " + getPosition() + ", " + getMaxPupils();
 	}
 }

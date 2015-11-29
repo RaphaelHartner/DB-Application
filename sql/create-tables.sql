@@ -3,7 +3,7 @@
 CREATE SEQUENCE Person_Sequence MINVALUE 1 INCREMENT 1;
 CREATE SEQUENCE RoomType_Sequence MINVALUE 1 INCREMENT 1;
 CREATE SEQUENCE Room_Sequence MINVALUE 1 INCREMENT 1;
-CREATE SEQUENCE Class_Sequence MINVALUE 1 INCREMENT 1;
+CREATE SEQUENCE SchoolClass_Sequence MINVALUE 1 INCREMENT 1;
 
 -- ##### Tables #####
 -- Table: roomtype
@@ -48,19 +48,20 @@ WITH (
 ALTER TABLE classroom
   OWNER TO pupilmanagement;
 
--- Table: class
-CREATE TABLE class
+-- Table: schoolclass
+CREATE TABLE schoolclass
 (
-  id INTEGER NOT NULL DEFAULT nextval('Class_Sequence'),
+  id INTEGER NOT NULL DEFAULT nextval('SchoolClass_Sequence'),
   name character varying(30),
   grade integer,
   classroom_id integer,
-  CONSTRAINT class_pkey PRIMARY KEY (id)
+  classteacher_id integer,
+  CONSTRAINT schoolclass_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE class
+ALTER TABLE schoolclass
   OWNER TO pupilmanagement;
   
 -- Table: person
@@ -84,8 +85,7 @@ CREATE TABLE pupil
 (
   id INTEGER NOT NULL DEFAULT nextval('Person_Sequence'),
   yearofentry smallint,
-  -- person_id integer,
-  class_id integer,
+  schoolclass_id integer,
   CONSTRAINT pupil_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -99,7 +99,6 @@ CREATE TABLE teacher
 (
   id INTEGER NOT NULL DEFAULT nextval('Person_Sequence'),
   abbreviation character varying(10),
-  -- person_id integer,
   CONSTRAINT teacher_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -108,36 +107,45 @@ WITH (
 ALTER TABLE teacher
   OWNER TO pupilmanagement;
 
+  -- Table: classteacher
+CREATE TABLE classteacher
+(
+  id INTEGER NOT NULL DEFAULT nextval('Person_Sequence'),
+  CONSTRAINT classteacher_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE classteacher
+  OWNER TO pupilmanagement;
+
 
   
 -- ##### Mapping Tables #####
--- Table: occupancy
-CREATE TABLE occupancy
+-- Table: schoolclass_room  
+CREATE TABLE schoolclass_room
 (
-  --id serial NOT NULL,
-  class_id integer,
-  room_id integer,
-  CONSTRAINT occupancy_pkey PRIMARY KEY (class_id, room_id)
+  schoolclasses_id integer,
+  rooms_id integer,
+  CONSTRAINT schoolclass_room_pkey PRIMARY KEY (schoolclasses_id, rooms_id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE occupancy
+ALTER TABLE schoolclass_room
   OWNER TO pupilmanagement;
 
--- Table: tuition
-CREATE TABLE tuition
+-- Table: schoolclass_teacher
+CREATE TABLE schoolclass_teacher
 (
-  --id serial NOT NULL,
-  class_id integer,
-  teacher_id integer,
-  isclassteacher bit(1) NOT NULL,
-  CONSTRAINT tuition_pkey PRIMARY KEY (class_id, teacher_id)
+  schoolclasses_id integer,
+  teachers_id integer,
+  CONSTRAINT schoolclass_teacher_pkey PRIMARY KEY (schoolclasses_id, teachers_id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE tuition
+ALTER TABLE schoolclass_teacher
   OWNER TO pupilmanagement;
   
 	
@@ -147,36 +155,28 @@ ALTER TABLE room ADD CONSTRAINT room_typeid_fkey FOREIGN KEY (typeid)
       REFERENCES roomtype (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-/*ALTER TABLE classroom ADD CONSTRAINT classroom_room_id_fkey FOREIGN KEY (room_id)
-      REFERENCES room (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;*/
-
-ALTER TABLE "class" ADD CONSTRAINT class_classroom_id_fkey FOREIGN KEY (classroom_id)
+ALTER TABLE schoolclass ADD CONSTRAINT schoolclass_classroom_id_fkey FOREIGN KEY (classroom_id)
       REFERENCES classroom (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-	  
-/*ALTER TABLE teacher ADD CONSTRAINT teacher_person_id_fkey FOREIGN KEY (person_id)
-      REFERENCES person (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;*/
-
-ALTER TABLE pupil ADD CONSTRAINT pupil_class_id_fkey FOREIGN KEY (class_id)
-      REFERENCES class (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-/*ALTER TABLE pupil ADD CONSTRAINT pupil_person_id_fkey FOREIGN KEY (person_id)
-      REFERENCES person (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;*/
-	  
-ALTER TABLE tuition ADD CONSTRAINT tuition_class_id_fkey FOREIGN KEY (class_id)
-      REFERENCES class (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE tuition ADD CONSTRAINT tuition_teacher_id_fkey FOREIGN KEY (teacher_id)
+ALTER TABLE schoolclass ADD CONSTRAINT schoolclass_classteacher_id_fkey FOREIGN KEY (classteacher_id)
       REFERENCES teacher (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 	  
-ALTER TABLE occupancy ADD CONSTRAINT occupancy_class_id_fkey FOREIGN KEY (class_id)
-      REFERENCES class (id) MATCH SIMPLE
+ALTER TABLE pupil ADD CONSTRAINT pupil_schoolclass_id_fkey FOREIGN KEY (schoolclass_id)
+      REFERENCES schoolclass (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE occupancy ADD CONSTRAINT occupancy_room_id_fkey FOREIGN KEY (room_id)
+	  
+ALTER TABLE schoolclass_room ADD CONSTRAINT schoolclass_room_id_fkey FOREIGN KEY (schoolclasses_id)
+      REFERENCES schoolclass (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE schoolclass_room ADD CONSTRAINT schoolclass_room__id_fkey FOREIGN KEY (rooms_id)
       REFERENCES room (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+	  
+ALTER TABLE schoolclass_teacher ADD CONSTRAINT schoolclass_teacher_schoolclass_id_fkey FOREIGN KEY (schoolclasses_id)
+      REFERENCES schoolclass (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE schoolclass_teacher ADD CONSTRAINT schoolclass_teacher_id_fkey FOREIGN KEY (teachers_id)
+      REFERENCES teacher (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
    

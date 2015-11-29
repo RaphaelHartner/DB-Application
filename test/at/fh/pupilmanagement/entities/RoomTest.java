@@ -1,7 +1,5 @@
 package at.fh.pupilmanagement.entities;
 
-import java.util.Random;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -9,8 +7,6 @@ import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import at.fh.pupilmangement.entities.ClassRoom;
 
 public class RoomTest {
 	final Long ID = 1l;
@@ -74,19 +70,19 @@ public class RoomTest {
 	@Test
 	public void testAdd() {
 		
-		EntityManagerFactory emfactory = Persistence
-				.createEntityManagerFactory("PupilManagement");
-		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
-
-		ClassRoom newRoom = new ClassRoom();
-		Random rnd = new Random();
-		newRoom.setMaxPupils(rnd.nextInt(40));
-//		newRoom.setName("TestName");
-		newRoom.setPosition("A.1.01");
-
-		entitymanager.persist(newRoom);
-		entitymanager.getTransaction().commit();
+//		EntityManagerFactory emfactory = Persistence
+//				.createEntityManagerFactory("PupilManagement");
+//		EntityManager entitymanager = emfactory.createEntityManager();
+//		entitymanager.getTransaction().begin();
+//
+//		ClassRoom newRoom = new ClassRoom();
+//		Random rnd = new Random();
+//		newRoom.setMaxPupils(rnd.nextInt(40));
+////		newRoom.setName("TestName");
+//		newRoom.setPosition("A.1.01");
+//
+//		entitymanager.persist(newRoom);
+//		entitymanager.getTransaction().commit();
 	}
 	
 	@After

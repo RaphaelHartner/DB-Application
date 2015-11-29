@@ -8,7 +8,7 @@
 		<class>at.fh.pupilmangement.entities.Teacher</class>
 		<class>at.fh.pupilmangement.entities.Pupil</class>
 		<class>at.fh.pupilmangement.entities.ClassRoom</class>
-		<class>at.fh.pupilmangement.entities.Class</class>
+		<class>at.fh.pupilmangement.entities.SchoolClass</class>
 		<class>at.fh.pupilmangement.entities.RoomType</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
