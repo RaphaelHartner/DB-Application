@@ -1,21 +1,29 @@
 package at.fh.pupilmanagement.entities;
 
+import java.util.Random;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.junit.Assert;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import at.fh.pupilmangement.entities.Room;
+import at.fh.pupilmangement.entities.ClassRoom;
 
 public class RoomTest {
 	final Long ID = 1l;
 
+	EntityManagerFactory emFactory;
+	EntityManager entityManager;
+	
 	@Before
-	public void setup() {
-
+	public void setup(){
+		emFactory = Persistence
+				.createEntityManagerFactory("PupilManagement");
+		entityManager = emFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 	}
 
 	@Test
@@ -63,9 +71,7 @@ public class RoomTest {
 //		emfactory.close();
 	}
 
-	/* todo: add assert statements
-	 * 
-	 * @Test
+	@Test
 	public void testAdd() {
 		
 		EntityManagerFactory emfactory = Persistence
@@ -73,15 +79,22 @@ public class RoomTest {
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		Room newRoom = new Room();
-		newRoom.setMaxPupils(25);
-		newRoom.setName("TestName");
-		newRoom.setPosition("TestPosition");
+		ClassRoom newRoom = new ClassRoom();
+		Random rnd = new Random();
+		newRoom.setMaxPupils(rnd.nextInt(40));
+//		newRoom.setName("TestName");
+		newRoom.setPosition("A.1.01");
 
 		entitymanager.persist(newRoom);
 		entitymanager.getTransaction().commit();
+	}
+	
+	@After
+	public void teardown(){
 		
-		entitymanager.close();
-		emfactory.close();
-	}*/
+		if(entityManager != null)
+			entityManager.close();
+		if(emFactory != null)
+			emFactory.close();
+	}
 }
