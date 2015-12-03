@@ -12,7 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class SchoolClass {
+public class SchoolClass
+{
 
 	@SequenceGenerator(name = "ClassIdGenerator", sequenceName = "SchoolClass_Sequence", allocationSize = 1)
 	@Id
@@ -20,66 +21,109 @@ public class SchoolClass {
 	private int id;
 	private String name;
 	private int grade;
-	
+
 	@OneToOne
-	private Teacher classTeacher; 
-	@OneToMany(mappedBy="schoolClass")
+	private Teacher classTeacher;
+	@OneToOne
+	private ClassRoom classRoom;
+	
+	@OneToMany(mappedBy = "schoolClass")
 	private List<Pupil> pupils = new ArrayList<Pupil>();
+	
 	@ManyToMany
 	private List<Teacher> teachers = new ArrayList<Teacher>();
-	
-	public Teacher getClassTeacher() {
+	@ManyToMany(mappedBy = "schoolClasses")
+	private List<Room> rooms = new ArrayList<Room>();
+
+	public Teacher getClassTeacher()
+	{
 		return classTeacher;
 	}
-	public void setClassTeacher(Teacher classTeacher) {
+
+	public void setClassTeacher(Teacher classTeacher)
+	{
 		this.classTeacher = classTeacher;
 		classTeacher.setMainClass(this);
 	}
-	
-	public List<Teacher> getTeachers(){
+
+	public List<Teacher> getTeachers()
+	{
 		return teachers;
 	}
-	public void addTeacher(Teacher teacher){
-		if(teacher == null)
+
+	public void addTeacher(Teacher teacher)
+	{
+		if (teacher == null)
 			throw new IllegalArgumentException("ERROR: Couldn't add NULL to teachers!");
-		
+
 		teachers.add(teacher);
 		teacher.addSchoolClass(this);
 	}
 	
-	public List<Pupil> getPupils(){
+	public void addRoom(Room room)
+	{
+		if (room == null)
+			throw new IllegalArgumentException("ERROR: Couldn't add NULL to rooms!");
+		
+		rooms.add(room);
+	}
+
+	public List<Pupil> getPupils()
+	{
 		return pupils;
 	}
-	void addPupil(Pupil pupil){
-		
-		if(pupil == null)
+
+	void addPupil(Pupil pupil)
+	{
+
+		if (pupil == null)
 			throw new IllegalArgumentException("ERROR: Couldn't add NULL to pupils!");
 		pupils.add(pupil);
 	}
 	
-	public int getId() {
+	public ClassRoom getClassRoom()
+	{
+		return classRoom;
+	}
+
+	public void setClassRoom(ClassRoom classRoom)
+	{
+		this.classRoom = classRoom;
+	}
+
+	public int getId()
+	{
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(int id)
+	{
 		this.id = id;
 	}
-	
-	public String getName() {
+
+	public String getName()
+	{
 		return name;
 	}
-	public void setName(String name) {
+
+	public void setName(String name)
+	{
 		this.name = name;
 	}
-	
-	public int getGrade() {
+
+	public int getGrade()
+	{
 		return grade;
 	}
-	public void setGrade(int grade) {
+
+	public void setGrade(int grade)
+	{
 		this.grade = grade;
 	}
-	
+
 	@Override
-	public String toString(){
-		return "Class: " +  getName() + ", " + getGrade();
+	public String toString()
+	{
+		return "Class: " + getName() + ", " + getGrade();
 	}
 }
