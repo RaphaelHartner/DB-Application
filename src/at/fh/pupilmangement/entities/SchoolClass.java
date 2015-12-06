@@ -14,11 +14,12 @@ import javax.persistence.SequenceGenerator;
 @Entity
 public class SchoolClass
 {
-
-	@SequenceGenerator(name = "ClassIdGenerator", sequenceName = "SchoolClass_Sequence", allocationSize = 1)
+	private static final String SCHOOLCLASS_SEQUENCE = "schoolclass_sequence";
+	
+	@SequenceGenerator(name = "ClassIdGenerator", sequenceName = SCHOOLCLASS_SEQUENCE, allocationSize = 1)
 	@Id
 	@GeneratedValue(generator = "ClassIdGenerator")
-	private int id;
+	private long id;
 	private String name;
 	private int grade;
 
@@ -91,12 +92,12 @@ public class SchoolClass
 		this.classRoom = classRoom;
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id = id;
 	}
@@ -120,10 +121,14 @@ public class SchoolClass
 	{
 		this.grade = grade;
 	}
-
+	
 	@Override
 	public String toString()
 	{
 		return "Class: " + getName() + ", " + getGrade();
+	}
+	
+	public static String getSequenceName(){
+		return SCHOOLCLASS_SEQUENCE;
 	}
 }

@@ -15,10 +15,10 @@ public class Pupil extends Person{
 	private SchoolClass schoolClass;
 	
 	
-	public SchoolClass getCurrentClass() {
+	public SchoolClass getSchoolClass() {
 		return schoolClass;
 	}
-	public void setCurrentClass(SchoolClass schoolClass) {
+	public void setSchoolClass(SchoolClass schoolClass) {
 		if(schoolClass ==null)
 			throw new IllegalArgumentException("ERROR: CurrentClass couldn't be null!");
 		

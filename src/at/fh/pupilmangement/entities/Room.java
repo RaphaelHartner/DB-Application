@@ -21,11 +21,12 @@ import javax.persistence.SequenceGenerator;
 @DiscriminatorValue(value = "room")
 public class Room
 {
+	private static final String ROOM_SEQUENCE = "room_sequence";
 
-	@SequenceGenerator(name = "RoomIdGenerator", sequenceName = "Room_Sequence", allocationSize = 1)
+	@SequenceGenerator(name = "RoomIdGenerator", sequenceName = ROOM_SEQUENCE, allocationSize = 1)
 	@Id
 	@GeneratedValue(generator = "RoomIdGenerator")
-	private int id;
+	private long id;
 	private int maxPupils;
 	private String position;
 	
@@ -35,12 +36,12 @@ public class Room
 	@ManyToMany
 	private List<SchoolClass> schoolClasses = new ArrayList<SchoolClass>();
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id = id;
 	}
@@ -88,5 +89,9 @@ public class Room
 	public String toString()
 	{
 		return "Room: " + getPosition() + ", " + getMaxPupils();
+	}
+	
+	public static String getSequenceName(){
+		return ROOM_SEQUENCE;
 	}
 }

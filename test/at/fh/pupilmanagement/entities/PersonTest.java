@@ -1,6 +1,6 @@
 package at.fh.pupilmanagement.entities;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,12 +11,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.repositories.Repository;
+import at.fh.pupilmangement.entities.Person;
 import at.fh.pupilmangement.entities.Teacher;
 
 public class PersonTest {
 
 	EntityManagerFactory emFactory;
 	EntityManager entityManager;
+	Repository<Person> personRepository ;
 	
 	@Before
 	public void setup(){
@@ -24,6 +27,9 @@ public class PersonTest {
 				.createEntityManagerFactory("PupilManagement");
 		entityManager = emFactory.createEntityManager();
 		entityManager.getTransaction().begin();
+		
+//		personRepository = new Repository<Person>(Person.class, Person.getSequenceName());
+		
 	}
 	
 	@Test
@@ -34,20 +40,22 @@ public class PersonTest {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
+//	@SuppressWarnings("deprecation")
 	@Test
 	public void testTeacherInsert(){
 		
 		Teacher teacher = new Teacher();
+//		teacher.setId(150);
 		teacher.setFirstName("Nico");
 		teacher.setLastName("Mustermann");
-		teacher.setBirthDate(new Date(1964,11,11));
-
+		teacher.setBirthDate(new GregorianCalendar(1994, 12, 25).getTime());
+		
+		
 		entityManager.persist(teacher);
 		entityManager.getTransaction().commit();
 		
-		int id = teacher.getId();
-		Assert.assertEquals(3, id);
+		long id = teacher.getId();
+		Assert.assertEquals(150, id);
 		
 	}
 	
@@ -55,6 +63,8 @@ public class PersonTest {
 	public void teardown(){
 		entityManager.close();
 		emFactory.close();
+//		personRepository.resetTestData();
+//		personRepository.closeConnetion();
 	}
 
 }

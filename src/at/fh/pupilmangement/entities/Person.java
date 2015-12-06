@@ -17,19 +17,21 @@ import javax.persistence.TemporalType;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "concrete_person_type")
 @DiscriminatorValue(value = "person")
-public class Person {
+public class Person{
 
-	@SequenceGenerator(name = "PersonIdGenerator", sequenceName = "Person_Sequence", allocationSize = 1)
+	private static final String PERSON_SEQUENCE = "person_sequence";
+	
 	@Id
 	@GeneratedValue(generator = "PersonIdGenerator")
-	private int id;
+	@SequenceGenerator(name = "PersonIdGenerator", sequenceName = PERSON_SEQUENCE, allocationSize = 1)
+	private long id;
 	private String firstName;
 	private String lastName;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -62,5 +64,8 @@ public class Person {
 		return "Person: " + getFirstName() + " " + getLastName() + ", "
 				+ getBirthDate();
 	}
-
+	
+	public static String getSequenceName(){
+		return PERSON_SEQUENCE;
+	}
 }
