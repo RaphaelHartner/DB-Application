@@ -1,5 +1,6 @@
 package at.fh.pupilmanagement.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,7 +8,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-public class Repository<T> {
+import at.fh.pupilmangement.entities.BaseEntity;
+
+public class BaseRepository<T extends BaseEntity>{
 
 	public static final String DB_NAME = "PupilManagement";
 
@@ -15,34 +18,44 @@ public class Repository<T> {
 	protected EntityManager entityManager;
 	protected EntityManagerFactory emFactory;
 	protected String sequenceName;
-	protected long lastIdInDatabase;
+	protected long lastTableId;
+	protected List<T> insertedEntities = new ArrayList<T>();
 
-	public Repository(Class<T> entityClass) {
+	public BaseRepository(Class<T> entityClass) {
 		this.entityClass = entityClass;
-		
+
 		emFactory = Persistence.createEntityManagerFactory(DB_NAME);
 		entityManager = emFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 	}
 
-	// TODO: implement constructor for testing purpose
-	//use this constructor for testing purpose
-	// call reset testing data when you are finish
-//	public Repository(Class<T> entityClass, String sequenceName) {
-//
-//		this(entityClass);
-//		this.sequenceName = sequenceName;
-//		lastIdInDatabase = getNextSequenceValue(this.sequenceName) - 1;
-//	}
-
-	//TODO: implement automatically reset for test data
-//	public void resetTestData() {
-//		
-//		entityManager.createQuery(
-//				"DELETE FROM " + entityClass.getTypeName() + " entity WHERE entity.id > " + this.lastIdInDatabase, entityClass).executeUpdate();
-//		setSequenceValue(this.sequenceName, lastIdInDatabase);
-//	}
-
+	public void saveToDb(T entity) {
+		
+		entityManager.persist(entity);
+		entityManager.getTransaction().commit();
+		entityManager.getTransaction().begin();
+		
+		this.insertedEntities.add(entity);
+	}
+	
+	public boolean delete(T entity){
+		try {
+			
+			getEntityManager().remove(entity);
+			getEntityManager().getTransaction().commit();
+			getEntityManager().getTransaction().begin();
+			
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean delete(long id){
+		// TODO: implement if needed
+		return false;
+	}
+	
 	public void closeConnetion() {
 		if (entityManager != null)
 			entityManager.close();
@@ -50,7 +63,7 @@ public class Repository<T> {
 			emFactory.close();
 	}
 
-	public T find(int id) {
+	public T find(long id) {
 		return entityManager.find(entityClass, id);
 	}
 
@@ -60,6 +73,25 @@ public class Repository<T> {
 						+ " ORDER BY entity.id", entityClass);
 
 		return query.getResultList();
+	}
+
+	public void rollbackInsertedData(){
+		for (T entity : this.insertedEntities) {
+			delete(entity);
+		}
+	}
+	
+	public void rollbackInsertedData(String sequenceName, long sequenceValue){
+		rollbackInsertedData();
+		BaseRepository.setSequenceValue(sequenceName, sequenceValue);
+	}
+	
+	public EntityManager getEntityManager() {
+		return this.entityManager;
+	}
+
+	public Class<T> getEntityClass() {
+		return this.entityClass;
 	}
 
 	public static long getNextSequenceValue(String sequence) {

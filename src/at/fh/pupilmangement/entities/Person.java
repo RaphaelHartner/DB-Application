@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "concrete_person_type")
 @DiscriminatorValue(value = "person")
-public class Person{
+public class Person extends BaseEntity{
 
 	private static final String PERSON_SEQUENCE = "person_sequence";
 	

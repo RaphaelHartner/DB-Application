@@ -19,7 +19,7 @@ import javax.persistence.SequenceGenerator;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "concrete_room_type")
 @DiscriminatorValue(value = "room")
-public class Room
+public class Room extends BaseEntity
 {
 	private static final String ROOM_SEQUENCE = "room_sequence";
 

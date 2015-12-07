@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class SchoolClass
+public class SchoolClass extends BaseEntity
 {
 	private static final String SCHOOLCLASS_SEQUENCE = "schoolclass_sequence";
 	
