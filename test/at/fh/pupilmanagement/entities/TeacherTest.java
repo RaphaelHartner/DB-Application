@@ -1,52 +1,78 @@
 package at.fh.pupilmanagement.entities;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
-import at.fh.pupilmangement.entities.Person;
 import at.fh.pupilmangement.entities.Teacher;
 
 public class TeacherTest {
 
-	EntityManagerFactory emFactory;
-	EntityManager entityManager;
-	BaseRepository<Teacher> teacherRepository;
-	long lastTableId;
+	private static BaseRepository<Teacher> teacherRepository;
+	private Teacher currentTestTeacher;
+	private static long lastTableId;
 
-	@Before
-	public void setup() {
+	@BeforeClass
+	public static void classSetup(){
 		teacherRepository = new BaseRepository<Teacher>(Teacher.class);
 		lastTableId = BaseRepository.getLastTableId(Teacher.getSequenceName());
+	}
+	
+	@Before
+	public void setup() {
 
+		currentTestTeacher = new Teacher("Raphael", "Hartner",
+				new GregorianCalendar(1994, 4, 23).getTime(), "HarR");
+		teacherRepository.saveToDb(currentTestTeacher);
+	}
+
+	@Test
+	public void testTeacherFind() {
+		Assert.assertNotNull(teacherRepository.find(currentTestTeacher.getId()));
+	}
+
+	@Test
+	public void testTeacherInsert() {
+
+		Teacher insertedTeacher = teacherRepository
+				.find(currentTestTeacher.getId());
+		Assert.assertNotNull(insertedTeacher);
+	}
+
+	@Test
+	public void testTeacherUpdate() {
+
+		Teacher insertedTeacher = teacherRepository
+				.find(currentTestTeacher.getId());
+		insertedTeacher.setFirstName("Georg");
+		insertedTeacher.setLastName("Adelmann");
+		teacherRepository.commit();
+		Teacher updatedTeacher = teacherRepository.find(currentTestTeacher.getId());
+
+		Assert.assertEquals("Georg", updatedTeacher.getFirstName());
+		Assert.assertEquals("Adelmann", updatedTeacher.getLastName());
 	}
 
 	@Test
 	public void testTeacherDelete() {
 
-		Teacher teacher = new Teacher("Raphael", "Teacher",
-				new GregorianCalendar(1990, 5, 20).getTime(), "TeaR");
-		teacherRepository.saveToDb(teacher);
-		Teacher insertedTeacher = teacherRepository.find(teacher.getId());
+		Teacher insertedTeacher = teacherRepository
+				.find(currentTestTeacher.getId());
 		Assert.assertNotNull(insertedTeacher);
 		teacherRepository.deleteFromDb(insertedTeacher);
 
-		teacher = teacherRepository.find(teacher.getId());
-		Assert.assertNull(teacher); // Should be deleted!
-
+		currentTestTeacher = teacherRepository.find(currentTestTeacher.getId());
+		Assert.assertNull(currentTestTeacher); // Should be deleted!
 	}
 
-	@After
-	public void teardown() {
-		teacherRepository.rollbackInsertedData(Person.getSequenceName(),
+	@AfterClass
+	public static void classTeardown() {
+		teacherRepository.rollbackInsertedData(Teacher.getSequenceName(),
 				lastTableId);
 		teacherRepository.closeConnetion();
 	}
