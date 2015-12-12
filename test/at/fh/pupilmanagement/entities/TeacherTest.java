@@ -1,61 +1,55 @@
 package at.fh.pupilmanagement.entities;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmangement.entities.Person;
 import at.fh.pupilmangement.entities.Teacher;
 
 public class TeacherTest {
 
 	EntityManagerFactory emFactory;
 	EntityManager entityManager;
+	BaseRepository<Teacher> teacherRepository;
+	long lastTableId;
 
 	@Before
 	public void setup() {
-		emFactory = Persistence.createEntityManagerFactory("PupilManagement");
-		entityManager = emFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+		teacherRepository = new BaseRepository<Teacher>(Teacher.class);
+		lastTableId = BaseRepository.getNextSequenceValue(Teacher
+				.getSequenceName()) - 1;
+
 	}
 
-//	@Test
-//	public void testTeacher() {
-//
-//		at.fh.pupilmangement.entities.Person teacher = entityManager.find(
-//				at.fh.pupilmangement.entities.Person.class, 2);
-//		Assert.assertNotNull(teacher);
-//
-//	}
-
-	@SuppressWarnings("deprecation")
 	@Test
-	public void testInsert() {
+	public void testTeacherDelete() {
 
-		try {
-			Teacher teacher = new Teacher();
-			teacher.setFirstName("Nico");
-			teacher.setLastName("Mustermann");
-			teacher.setBirthDate(new Date(1964, 11, 11)); //todo: use recommended Date
-			teacher.setAbbreviation("MusN");
+		Teacher teacher = new Teacher("Raphael", "Teacher",
+				new GregorianCalendar(1990, 5, 20).getTime(), "TeaR");
+		teacherRepository.saveToDb(teacher);
+		Teacher insertedTeacher = teacherRepository.find(teacher.getId());
+		Assert.assertNotNull(insertedTeacher);
+		teacherRepository.delete(insertedTeacher);
 
-			entityManager.persist(teacher);
-			entityManager.getTransaction().commit();
-		} catch (Exception e) {
-			Assert.fail(e.getMessage());
-		}
+		teacher = teacherRepository.find(teacher.getId());
+		Assert.assertNull(teacher); //Should be deleted!
+
 	}
 
 	@After
 	public void teardown() {
-		entityManager.close();
-		emFactory.close();
+		teacherRepository.rollbackInsertedData(Person.getSequenceName(),
+				lastTableId);
+		teacherRepository.closeConnetion();
 	}
 
 }

@@ -35,8 +35,7 @@ public class Room extends BaseEntity
 
 	public Room(){}
 	
-	public Room(long id, int maxPupils, String position, RoomType roomType){
-		setId(id);
+	public Room(int maxPupils, String position, RoomType roomType){
 		setMaxPupils(maxPupils);
 		setPosition(position);
 		setRoomType(roomType);

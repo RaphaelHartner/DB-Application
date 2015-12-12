@@ -30,8 +30,7 @@ public class Person extends BaseEntity{
 	
 	public Person(){}
 	
-	public Person(long id, String firstName, String lastName, Date birthDate){
-		setId(id);
+	public Person(String firstName, String lastName, Date birthDate){
 		setFirstName(firstName);
 		setLastName(lastName);
 		setBirthDate(birthDate);

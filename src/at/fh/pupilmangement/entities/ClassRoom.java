@@ -9,8 +9,8 @@ public class ClassRoom extends Room
 {
 	public ClassRoom() {}
 	
-	public ClassRoom(long id, int maxPupils, String position, RoomType roomType){
-		super(id, maxPupils, position, roomType);
+	public ClassRoom(int maxPupils, String position, RoomType roomType){
+		super(maxPupils, position, roomType);
 	}
 	
 	@Override

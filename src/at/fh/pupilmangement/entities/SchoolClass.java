@@ -37,8 +37,7 @@ public class SchoolClass extends BaseEntity
 	private List<Room> rooms = new ArrayList<Room>();
 
 	public SchoolClass(){}
-	public SchoolClass(long id,String name, int grade, Teacher mainClassTeacher, ClassRoom mainClassRoom){
-		setId(id);
+	public SchoolClass(String name, int grade, Teacher mainClassTeacher, ClassRoom mainClassRoom){
 		setName(name);
 		setGrade(grade);
 		setClassTeacher(mainClassTeacher);

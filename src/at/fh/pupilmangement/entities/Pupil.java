@@ -18,13 +18,13 @@ public class Pupil extends Person{
 	
 	public Pupil(){}
 	
-	public Pupil(long id, String firstName, String lastName, Date birthDate, short yearOfEntry){
-		super(id, firstName, lastName, birthDate);
+	public Pupil(String firstName, String lastName, Date birthDate, short yearOfEntry){
+		super(firstName, lastName, birthDate);
 		setYearOfEntry(yearOfEntry);
 	}
 	
-	public Pupil(long id, String firstName, String lastName, Date birthDate, short yearOfEntry, SchoolClass schoolClass){
-		this(id, firstName, lastName, birthDate, yearOfEntry);
+	public Pupil(String firstName, String lastName, Date birthDate, short yearOfEntry, SchoolClass schoolClass){
+		this(firstName, lastName, birthDate, yearOfEntry);
 		setSchoolClass(schoolClass);
 	}
 	

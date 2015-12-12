@@ -19,11 +19,12 @@ public class Teacher extends Person {
 	@ManyToMany(mappedBy = "teachers")
 	private Collection<SchoolClass> schoolclasses = new ArrayList<SchoolClass>();
 
-	public Teacher() {}
+	public Teacher() {
+	}
 
-	public Teacher(long id, String firstName, String lastName, Date birthDate,
+	public Teacher(String firstName, String lastName, Date birthDate,
 			String abbreviation) {
-		super(id, firstName, lastName, birthDate);
+		super(firstName, lastName, birthDate);
 		setAbbreviation(abbreviation);
 	}
 
