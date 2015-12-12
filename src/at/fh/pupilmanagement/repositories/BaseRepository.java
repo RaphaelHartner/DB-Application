@@ -21,10 +21,11 @@ public class BaseRepository<T extends BaseEntity> {
 	protected List<T> insertedEntities = new ArrayList<T>();
 
 	public BaseRepository(Class<T> entityClass) {
-		
-		if(entityClass == null)
-			throw new IllegalArgumentException("ERROR: given entityClass is NULL!");
-		
+
+		if (entityClass == null)
+			throw new IllegalArgumentException(
+					"ERROR: given entityClass is NULL!");
+
 		this.entityClass = entityClass;
 
 		emFactory = Persistence.createEntityManagerFactory(DB_UNIT_NAME);
@@ -32,18 +33,19 @@ public class BaseRepository<T extends BaseEntity> {
 	}
 
 	public BaseRepository(Class<T> entityClass, User user) {
-		
-		if(entityClass == null)
-			throw new IllegalArgumentException("ERROR: given entityClass is NULL!");
-		
+
+		if (entityClass == null)
+			throw new IllegalArgumentException(
+					"ERROR: given entityClass is NULL!");
+
 		this.entityClass = entityClass;
 
 		emFactory = Persistence.createEntityManagerFactory(DB_UNIT_NAME,
 				user.getUserProperties());
 		createEntityManager(emFactory);
 	}
-	
-	private void createEntityManager(EntityManagerFactory factory){
+
+	private void createEntityManager(EntityManagerFactory factory) {
 		entityManager = factory.createEntityManager();
 		entityManager.getTransaction().begin();
 	}
@@ -106,6 +108,11 @@ public class BaseRepository<T extends BaseEntity> {
 
 	public Class<T> getEntityClass() {
 		return this.entityClass;
+	}
+
+	//returns the last inserted sequence value
+	public static long getLastTableId(String sequence) {
+		return getNextSequenceValue(sequence) - 1;
 	}
 
 	public static long getNextSequenceValue(String sequence) {

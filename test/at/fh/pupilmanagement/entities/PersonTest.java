@@ -23,13 +23,12 @@ public class PersonTest {
 	@Before
 	public void setup() {
 		personRepository = new BaseRepository<Person>(Person.class);
-		lastTableId = BaseRepository.getNextSequenceValue(Person
-				.getSequenceName()) - 1;
+		lastTableId = BaseRepository.getLastTableId(Person.getSequenceName());
 	}
 
 	@Test
 	public void testTeacherInsert() {
-		
+
 		Person person = new Person();
 		person.setId(lastTableId + 1);
 		person.setFirstName("Raphael");
@@ -41,10 +40,10 @@ public class PersonTest {
 		Person insertedPerson = personRepository.find(lastTableId + 1);
 		Assert.assertNotNull(insertedPerson);
 	}
-	
+
 	@Test
-	public void testTeacherUpdate(){
-		
+	public void testTeacherUpdate() {
+
 	}
 
 	@After

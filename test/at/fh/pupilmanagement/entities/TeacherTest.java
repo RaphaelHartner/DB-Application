@@ -25,8 +25,7 @@ public class TeacherTest {
 	@Before
 	public void setup() {
 		teacherRepository = new BaseRepository<Teacher>(Teacher.class);
-		lastTableId = BaseRepository.getNextSequenceValue(Teacher
-				.getSequenceName()) - 1;
+		lastTableId = BaseRepository.getLastTableId(Teacher.getSequenceName());
 
 	}
 
@@ -41,7 +40,7 @@ public class TeacherTest {
 		teacherRepository.delete(insertedTeacher);
 
 		teacher = teacherRepository.find(teacher.getId());
-		Assert.assertNull(teacher); //Should be deleted!
+		Assert.assertNull(teacher); // Should be deleted!
 
 	}
 
