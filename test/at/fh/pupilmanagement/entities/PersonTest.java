@@ -2,12 +2,10 @@ package at.fh.pupilmanagement.entities;
 
 import java.util.GregorianCalendar;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
@@ -15,39 +13,65 @@ import at.fh.pupilmangement.entities.Person;
 
 public class PersonTest {
 
-	EntityManagerFactory emFactory;
-	EntityManager entityManager;
-	BaseRepository<Person> personRepository;
-	long lastTableId;
+	private static BaseRepository<Person> personRepository;
+	private Person currentTestPerson;
+	private static long lastTableId;
 
-	@Before
-	public void setup() {
+	@BeforeClass
+	public static void classSetup(){
 		personRepository = new BaseRepository<Person>(Person.class);
 		lastTableId = BaseRepository.getLastTableId(Person.getSequenceName());
 	}
+	
+	@Before
+	public void setup() {
+
+		currentTestPerson = new Person("Raphael", "Hartner",
+				new GregorianCalendar(1994, 4, 23).getTime());
+		personRepository.saveToDb(currentTestPerson);
+	}
 
 	@Test
-	public void testTeacherInsert() {
+	public void testPersonFind() {
+		Assert.assertNotNull(personRepository.find(currentTestPerson.getId()));
+	}
 
-		Person person = new Person();
-		person.setId(lastTableId + 1);
-		person.setFirstName("Raphael");
-		person.setLastName("Hartner");
-		person.setBirthDate(new GregorianCalendar(1994, 4, 24).getTime());
+	@Test
+	public void testPersonInsert() {
 
-		personRepository.saveToDb(person);
-
-		Person insertedPerson = personRepository.find(lastTableId + 1);
+		Person insertedPerson = personRepository
+				.find(currentTestPerson.getId());
 		Assert.assertNotNull(insertedPerson);
 	}
 
 	@Test
-	public void testTeacherUpdate() {
+	public void testPersonUpdate() {
 
+		Person insertedPerson = personRepository
+				.find(currentTestPerson.getId());
+		insertedPerson.setFirstName("Georg");
+		insertedPerson.setLastName("Adelmann");
+		personRepository.commit();
+		Person updatedPerson = personRepository.find(currentTestPerson.getId());
+
+		Assert.assertEquals("Georg", updatedPerson.getFirstName());
+		Assert.assertEquals("Adelmann", updatedPerson.getLastName());
 	}
 
-	@After
-	public void teardown() {
+	@Test
+	public void testPersonDelete() {
+
+		Person insertedPerson = personRepository
+				.find(currentTestPerson.getId());
+		Assert.assertNotNull(insertedPerson);
+		personRepository.deleteFromDb(insertedPerson);
+
+		currentTestPerson = personRepository.find(currentTestPerson.getId());
+		Assert.assertNull(currentTestPerson); // Should be deleted!
+	}
+
+	@AfterClass
+	public static void classTeardown() {
 		personRepository.rollbackInsertedData(Person.getSequenceName(),
 				lastTableId);
 		personRepository.closeConnetion();

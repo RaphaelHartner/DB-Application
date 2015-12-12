@@ -53,18 +53,21 @@ public class BaseRepository<T extends BaseEntity> {
 	public void saveToDb(T entity) {
 
 		entityManager.persist(entity);
-		entityManager.getTransaction().commit();
-		entityManager.getTransaction().begin();
+		commit();
 
 		this.insertedEntities.add(entity);
 	}
 
-	public boolean delete(T entity) {
+	public void commit(){
+		entityManager.getTransaction().commit();
+		entityManager.getTransaction().begin();
+	}
+	
+	public boolean deleteFromDb(T entity) {
 		try {
 
 			getEntityManager().remove(entity);
-			getEntityManager().getTransaction().commit();
-			getEntityManager().getTransaction().begin();
+			commit();
 
 		} catch (Exception e) {
 			return false;
@@ -73,6 +76,7 @@ public class BaseRepository<T extends BaseEntity> {
 	}
 
 	public void closeConnetion() {
+		
 		if (entityManager != null)
 			entityManager.close();
 		if (emFactory != null)
@@ -93,7 +97,7 @@ public class BaseRepository<T extends BaseEntity> {
 
 	public void rollbackInsertedData() {
 		for (T entity : this.insertedEntities) {
-			delete(entity);
+			deleteFromDb(entity);
 		}
 	}
 

@@ -37,7 +37,7 @@ public class TeacherTest {
 		teacherRepository.saveToDb(teacher);
 		Teacher insertedTeacher = teacherRepository.find(teacher.getId());
 		Assert.assertNotNull(insertedTeacher);
-		teacherRepository.delete(insertedTeacher);
+		teacherRepository.deleteFromDb(insertedTeacher);
 
 		teacher = teacherRepository.find(teacher.getId());
 		Assert.assertNull(teacher); // Should be deleted!
