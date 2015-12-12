@@ -36,6 +36,56 @@ public class SchoolClass extends BaseEntity
 	@ManyToMany(mappedBy = "schoolClasses")
 	private List<Room> rooms = new ArrayList<Room>();
 
+	public SchoolClass(){}
+	public SchoolClass(long id,String name, int grade, Teacher mainClassTeacher, ClassRoom mainClassRoom){
+		setId(id);
+		setName(name);
+		setGrade(grade);
+		setClassTeacher(mainClassTeacher);
+		setClassRoom(mainClassRoom);
+	}
+
+	public long getId()
+	{
+		return id;
+	}
+
+	public void setId(long id)
+	{
+		this.id = id;
+	}
+	
+	public ClassRoom getClassRoom()
+	{
+		return classRoom;
+	}
+
+	public void setClassRoom(ClassRoom classRoom)
+	{
+		this.classRoom = classRoom;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public int getGrade()
+	{
+		return grade;
+	}
+
+	public void setGrade(int grade)
+	{
+		this.grade = grade;
+	}
+	
+	
 	public Teacher getClassTeacher()
 	{
 		return classTeacher;
@@ -80,46 +130,6 @@ public class SchoolClass extends BaseEntity
 		if (pupil == null)
 			throw new IllegalArgumentException("ERROR: Couldn't add NULL to pupils!");
 		pupils.add(pupil);
-	}
-	
-	public ClassRoom getClassRoom()
-	{
-		return classRoom;
-	}
-
-	public void setClassRoom(ClassRoom classRoom)
-	{
-		this.classRoom = classRoom;
-	}
-
-	public long getId()
-	{
-		return id;
-	}
-
-	public void setId(long id)
-	{
-		this.id = id;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
-	public int getGrade()
-	{
-		return grade;
-	}
-
-	public void setGrade(int grade)
-	{
-		this.grade = grade;
 	}
 	
 	@Override

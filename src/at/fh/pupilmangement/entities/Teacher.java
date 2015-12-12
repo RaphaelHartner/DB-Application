@@ -2,6 +2,7 @@ package at.fh.pupilmangement.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,41 +10,53 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-@DiscriminatorValue(value="teacher")
-public class Teacher extends Person{
+@DiscriminatorValue(value = "teacher")
+public class Teacher extends Person {
 
 	private String abbreviation;
-	@OneToOne(mappedBy="classTeacher")
+	@OneToOne(mappedBy = "classTeacher")
 	private SchoolClass mainClass;
-	@ManyToMany(mappedBy="teachers")
+	@ManyToMany(mappedBy = "teachers")
 	private Collection<SchoolClass> schoolclasses = new ArrayList<SchoolClass>();
-	
+
+	public Teacher() {}
+
+	public Teacher(long id, String firstName, String lastName, Date birthDate,
+			String abbreviation) {
+		super(id, firstName, lastName, birthDate);
+		setAbbreviation(abbreviation);
+	}
+
 	public SchoolClass getMainClass() {
 		return mainClass;
 	}
+
 	void setMainClass(SchoolClass mainClass) {
 		this.mainClass = mainClass;
 	}
-	
-	public Collection<SchoolClass> getSchoolClasses(){
+
+	public Collection<SchoolClass> getSchoolClasses() {
 		return schoolclasses;
 	}
-	void addSchoolClass(SchoolClass schoolClass){
-		if(schoolClass == null)
-			throw new IllegalArgumentException("ERROR: Couldn't add NULL to classes!");
-		
+
+	void addSchoolClass(SchoolClass schoolClass) {
+		if (schoolClass == null)
+			throw new IllegalArgumentException(
+					"ERROR: Couldn't add NULL to classes!");
+
 		schoolclasses.add(schoolClass);
 	}
-	
-	public void setAbbreviation(String abbreviation){
+
+	public void setAbbreviation(String abbreviation) {
 		this.abbreviation = abbreviation;
 	}
-	public String getAbbreviation(){
+
+	public String getAbbreviation() {
 		return abbreviation;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return super.toString() + ", " + getAbbreviation();
 	}
 }

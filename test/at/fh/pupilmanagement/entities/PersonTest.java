@@ -41,6 +41,11 @@ public class PersonTest {
 		Person insertedPerson = personRepository.find(lastTableId + 1);
 		Assert.assertNotNull(insertedPerson);
 	}
+	
+	@Test
+	public void testTeacherUpdate(){
+		
+	}
 
 	@After
 	public void teardown() {

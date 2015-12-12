@@ -31,8 +31,17 @@ public class Room extends BaseEntity
 	private String position;
 	
 	@Enumerated(EnumType.STRING)
-	private RoomType type;
+	private RoomType roomType;
 
+	public Room(){}
+	
+	public Room(long id, int maxPupils, String position, RoomType roomType){
+		setId(id);
+		setMaxPupils(maxPupils);
+		setPosition(position);
+		setRoomType(roomType);
+	}
+	
 	@ManyToMany
 	private List<SchoolClass> schoolClasses = new ArrayList<SchoolClass>();
 
@@ -66,14 +75,14 @@ public class Room extends BaseEntity
 		this.position = position;
 	}
 	
-	public RoomType getType()
+	public RoomType getRoomType()
 	{
-		return type;
+		return roomType;
 	}
 
-	public void setType(RoomType type)
+	public void setRoomType(RoomType roomType)
 	{
-		this.type = type;
+		this.roomType = roomType;
 	}
 
 	public void addSchoolClasses(SchoolClass schoolClass)
@@ -83,6 +92,10 @@ public class Room extends BaseEntity
 		
 		schoolClasses.add(schoolClass);
 		schoolClass.addRoom(this);
+	}
+	
+	public List<SchoolClass> getSchooolClasses(){
+		return this.schoolClasses;
 	}
 
 	@Override

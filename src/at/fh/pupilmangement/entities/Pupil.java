@@ -1,5 +1,7 @@
 package at.fh.pupilmangement.entities;
 
+import java.util.Date;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -14,6 +16,17 @@ public class Pupil extends Person{
 	@ManyToOne
 	private SchoolClass schoolClass;
 	
+	public Pupil(){}
+	
+	public Pupil(long id, String firstName, String lastName, Date birthDate, short yearOfEntry){
+		super(id, firstName, lastName, birthDate);
+		setYearOfEntry(yearOfEntry);
+	}
+	
+	public Pupil(long id, String firstName, String lastName, Date birthDate, short yearOfEntry, SchoolClass schoolClass){
+		this(id, firstName, lastName, birthDate, yearOfEntry);
+		setSchoolClass(schoolClass);
+	}
 	
 	public SchoolClass getSchoolClass() {
 		return schoolClass;
