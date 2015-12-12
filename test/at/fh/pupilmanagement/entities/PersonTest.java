@@ -29,7 +29,7 @@ public class PersonTest {
 
 	@Test
 	public void testTeacherInsert() {
-
+		
 		Person person = new Person();
 		person.setId(lastTableId + 1);
 		person.setFirstName("Raphael");
