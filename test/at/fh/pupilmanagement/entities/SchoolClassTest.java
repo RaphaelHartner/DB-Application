@@ -38,9 +38,12 @@ public class SchoolClassTest
 	
 	@Test
 	public void testSchoolClassInsert()
-	{
-		SchoolClass insertedSchoolClass = schoolClassRepository.find(currentTestSchoolClass.getId());
+	{	SchoolClass newSchoolClass = new SchoolClass("C", 3);
+		schoolClassRepository.saveToDb(newSchoolClass);
+		SchoolClass insertedSchoolClass = schoolClassRepository.find(newSchoolClass.getId());
 		Assert.assertNotNull(insertedSchoolClass);
+		Assert.assertEquals(2, insertedSchoolClass.getGrade());
+		Assert.assertEquals("B", insertedSchoolClass.getName());
 	}
 	
 	@Test

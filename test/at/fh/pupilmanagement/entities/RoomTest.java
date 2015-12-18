@@ -56,7 +56,6 @@ public class RoomTest
 		Assert.assertEquals(20, updatedRoom.getMaxPupils());
 		Assert.assertEquals("B.2.01", updatedRoom.getPosition());
 		Assert.assertEquals(RoomType.Turnsaal, updatedRoom.getRoomType());
-		roomRepository.deleteFromDb(updatedRoom);
 	}
 	
 	@Test
