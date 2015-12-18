@@ -31,7 +31,7 @@ public class Room extends BaseEntity
 	private String position;
 	
 	@Enumerated(EnumType.STRING)
-	private RoomType roomType;
+	private RoomType type;
 
 	public Room(){}
 	
@@ -41,7 +41,7 @@ public class Room extends BaseEntity
 		setRoomType(roomType);
 	}
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "rooms")
 	private List<SchoolClass> schoolClasses = new ArrayList<SchoolClass>();
 
 	public long getId()
@@ -76,12 +76,12 @@ public class Room extends BaseEntity
 	
 	public RoomType getRoomType()
 	{
-		return roomType;
+		return type;
 	}
 
 	public void setRoomType(RoomType roomType)
 	{
-		this.roomType = roomType;
+		this.type = roomType;
 	}
 
 	public void addSchoolClasses(SchoolClass schoolClass)
@@ -90,7 +90,6 @@ public class Room extends BaseEntity
 			throw new IllegalArgumentException("ERROR: Can't add NULL to schoolClass");
 		
 		schoolClasses.add(schoolClass);
-		schoolClass.addRoom(this);
 	}
 	
 	public List<SchoolClass> getSchooolClasses(){

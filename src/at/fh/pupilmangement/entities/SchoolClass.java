@@ -15,7 +15,7 @@ import javax.persistence.SequenceGenerator;
 public class SchoolClass extends BaseEntity
 {
 	private static final String SCHOOLCLASS_SEQUENCE = "schoolclass_sequence";
-	
+
 	@SequenceGenerator(name = "ClassIdGenerator", sequenceName = SCHOOLCLASS_SEQUENCE, allocationSize = 1)
 	@Id
 	@GeneratedValue(generator = "ClassIdGenerator")
@@ -27,17 +27,27 @@ public class SchoolClass extends BaseEntity
 	private Teacher classTeacher;
 	@OneToOne
 	private ClassRoom classRoom;
-	
+
 	@OneToMany(mappedBy = "schoolClass")
 	private List<Pupil> pupils = new ArrayList<Pupil>();
-	
+
 	@ManyToMany
 	private List<Teacher> teachers = new ArrayList<Teacher>();
-	@ManyToMany(mappedBy = "schoolClasses")
+	@ManyToMany
 	private List<Room> rooms = new ArrayList<Room>();
 
-	public SchoolClass(){}
-	public SchoolClass(String name, int grade, Teacher mainClassTeacher, ClassRoom mainClassRoom){
+	public SchoolClass()
+	{
+	}
+
+	public SchoolClass(String name, int grade)
+	{
+		setName(name);
+		setGrade(grade);
+	}
+
+	public SchoolClass(String name, int grade, Teacher mainClassTeacher, ClassRoom mainClassRoom)
+	{
 		setName(name);
 		setGrade(grade);
 		setClassTeacher(mainClassTeacher);
@@ -53,7 +63,7 @@ public class SchoolClass extends BaseEntity
 	{
 		this.id = id;
 	}
-	
+
 	public ClassRoom getClassRoom()
 	{
 		return classRoom;
@@ -63,7 +73,7 @@ public class SchoolClass extends BaseEntity
 	{
 		this.classRoom = classRoom;
 	}
-	
+
 	public String getName()
 	{
 		return name;
@@ -83,8 +93,7 @@ public class SchoolClass extends BaseEntity
 	{
 		this.grade = grade;
 	}
-	
-	
+
 	public Teacher getClassTeacher()
 	{
 		return classTeacher;
@@ -109,13 +118,19 @@ public class SchoolClass extends BaseEntity
 		teachers.add(teacher);
 		teacher.addSchoolClass(this);
 	}
+
+	public List<Room> getRooms()
+	{
+		return rooms;
+	}
 	
 	public void addRoom(Room room)
 	{
 		if (room == null)
 			throw new IllegalArgumentException("ERROR: Couldn't add NULL to rooms!");
-		
+
 		rooms.add(room);
+		room.addSchoolClasses(this);
 	}
 
 	public List<Pupil> getPupils()
@@ -130,14 +145,15 @@ public class SchoolClass extends BaseEntity
 			throw new IllegalArgumentException("ERROR: Couldn't add NULL to pupils!");
 		pupils.add(pupil);
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return "Class: " + getName() + ", " + getGrade();
 	}
-	
-	public static String getSequenceName(){
+
+	public static String getSequenceName()
+	{
 		return SCHOOLCLASS_SEQUENCE;
 	}
 }

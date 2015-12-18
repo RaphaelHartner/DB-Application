@@ -1,96 +1,84 @@
 package at.fh.pupilmanagement.entities;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class RoomTest {
-	final Long ID = 1l;
+import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmangement.entities.Room;
+import at.fh.pupilmangement.entities.RoomType;
 
-	EntityManagerFactory emFactory;
-	EntityManager entityManager;
+public class RoomTest
+{
+	private static BaseRepository<Room> roomRepository;
+	private Room currentTestRoom;
+	private static long lastTableId;
+	
+	@BeforeClass
+	public static void classSetup()
+	{
+		roomRepository = new BaseRepository<Room>(Room.class);
+		lastTableId = BaseRepository.getLastTableId(Room.getSequenceName());
+	}
 	
 	@Before
-	public void setup(){
-		emFactory = Persistence
-				.createEntityManagerFactory("PupilManagement");
-		entityManager = emFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+	public void setup()
+	{
+		currentTestRoom = new Room(30, "A.1.03", RoomType.Klassenzimmer);
+		roomRepository.saveToDb(currentTestRoom);
 	}
-
+	
 	@Test
-	public void testFind() {
-
-//		EntityManagerFactory emfactory = Persistence
-//				.createEntityManagerFactory("PupilManagement");
-//		EntityManager entitymanager = emfactory.createEntityManager();
-//		entitymanager.getTransaction().begin();
-//
-//		Room room = entitymanager.find(Room.class, ID);
-//
-//		Assert.assertNotNull(room);
+	public void testRoomFind()
+	{
+		Assert.assertNotNull(roomRepository.find(currentTestRoom.getId()));
 	}
-
+	
 	@Test
-	public void testUpdate() {
-
-//		final String room_name = "Klassenzimmer ";
-//		final String room_position = "A.1.";
-//
-//		EntityManagerFactory emfactory = Persistence
-//				.createEntityManagerFactory("PupilManagement");
-//		EntityManager entitymanager = emfactory.createEntityManager();
-//		entitymanager.getTransaction().begin();
-//
-//		Room room = entitymanager.find(Room.class, ID);
-//
-//		Random random = new Random();
-//		int changedNumber = random.nextInt(100);
-//
-//		room.setMaxPupils(changedNumber);
-//		room.setName(room_name + changedNumber);
-//		room.setPosition(room_position + changedNumber);
-//
-//		entitymanager.getTransaction().commit();
-//
-//		room = entitymanager.find(Room.class, ID);
-//		Assert.assertNotNull(room);
-//		Assert.assertEquals(room_name + changedNumber, room.getName());
-//		Assert.assertEquals(room_position + changedNumber, room.getPosition());
-//		Assert.assertEquals(changedNumber, changedNumber);
-//
-//		entitymanager.close();
-//		emfactory.close();
+	public void testRoomInsert()
+	{
+		Room insertedRoom = roomRepository.find(currentTestRoom.getId());
+		Assert.assertNotNull(insertedRoom);
 	}
-
+	
 	@Test
-	public void testAdd() {
+	public void testRoomUpdate()
+	{
+		Room insertedRoom = roomRepository.find(currentTestRoom.getId());
+		insertedRoom.setMaxPupils(20);
+		insertedRoom.setPosition("B.2.01");
+		insertedRoom.setRoomType(RoomType.Turnsaal);
+		roomRepository.commit();
+		Room updatedRoom = roomRepository.find(currentTestRoom.getId());		
+		Assert.assertEquals(20, updatedRoom.getMaxPupils());
+		Assert.assertEquals("B.2.01", updatedRoom.getPosition());
+		Assert.assertEquals(RoomType.Turnsaal, updatedRoom.getRoomType());
+		roomRepository.deleteFromDb(updatedRoom);
+	}
+	
+	@Test
+	public void testRoomDelete()
+	{
+		Room insertedRoom = roomRepository.find(currentTestRoom.getId());
+		Assert.assertNotNull(insertedRoom);
 		
-//		EntityManagerFactory emfactory = Persistence
-//				.createEntityManagerFactory("PupilManagement");
-//		EntityManager entitymanager = emfactory.createEntityManager();
-//		entitymanager.getTransaction().begin();
-//
-//		ClassRoom newRoom = new ClassRoom();
-//		Random rnd = new Random();
-//		newRoom.setMaxPupils(rnd.nextInt(40));
-////		newRoom.setName("TestName");
-//		newRoom.setPosition("A.1.01");
-//
-//		entitymanager.persist(newRoom);
-//		entitymanager.getTransaction().commit();
+		roomRepository.deleteFromDb(insertedRoom);
+		currentTestRoom = roomRepository.find(currentTestRoom.getId());
+		Assert.assertNull(currentTestRoom);
 	}
 	
 	@After
-	public void teardown(){
-		
-		if(entityManager != null)
-			entityManager.close();
-		if(emFactory != null)
-			emFactory.close();
+	public void teardown()
+	{
+		roomRepository.rollbackInsertedData(Room.getSequenceName(), lastTableId);
+	}
+	
+	@AfterClass
+	public static void classTeardown()
+	{
+		roomRepository.closeConnetion();
 	}
 }
