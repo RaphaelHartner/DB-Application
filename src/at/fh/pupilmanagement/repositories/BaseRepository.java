@@ -38,6 +38,10 @@ public class BaseRepository<T extends BaseEntity> {
 			throw new IllegalArgumentException(
 					"ERROR: given entityClass is NULL!");
 
+		if (user == null)
+			throw new IllegalArgumentException(
+					"ERROR: given user is NULL!");
+		
 		this.entityClass = entityClass;
 
 		emFactory = Persistence.createEntityManagerFactory(DB_UNIT_NAME,
@@ -99,6 +103,7 @@ public class BaseRepository<T extends BaseEntity> {
 		for (T entity : this.insertedEntities) {
 			deleteFromDb(entity);
 		}
+		this.insertedEntities.clear();
 	}
 
 	public void rollbackInsertedData(String sequenceName, long sequenceValue) {
