@@ -42,8 +42,8 @@ public class SchoolClassTest
 		schoolClassRepository.saveToDb(newSchoolClass);
 		SchoolClass insertedSchoolClass = schoolClassRepository.find(newSchoolClass.getId());
 		Assert.assertNotNull(insertedSchoolClass);
-		Assert.assertEquals(2, insertedSchoolClass.getGrade());
-		Assert.assertEquals("B", insertedSchoolClass.getName());
+		Assert.assertEquals(3, insertedSchoolClass.getGrade());
+		Assert.assertEquals("C", insertedSchoolClass.getName());
 	}
 	
 	@Test

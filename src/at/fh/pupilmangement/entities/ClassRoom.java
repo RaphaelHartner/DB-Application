@@ -14,6 +14,11 @@ public class ClassRoom extends Room
 	}
 	
 	@Override
+	public BaseEntity createClonedEntity() {
+		return new ClassRoom(getMaxPupils(),getPosition(),getRoomType());
+	}
+	
+	@Override
 	public String toString()
 	{
 		return "Classroom: " + getPosition() + ", " + getMaxPupils();

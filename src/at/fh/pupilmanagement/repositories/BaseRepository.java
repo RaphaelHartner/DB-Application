@@ -11,7 +11,8 @@ import javax.persistence.TypedQuery;
 import at.fh.pupilmanagement.models.User;
 import at.fh.pupilmangement.entities.BaseEntity;
 
-public class BaseRepository<T extends BaseEntity> {
+public class BaseRepository<T extends BaseEntity>
+{
 
 	public static final String DB_UNIT_NAME = "PupilManagement";
 
@@ -20,7 +21,8 @@ public class BaseRepository<T extends BaseEntity> {
 	protected EntityManagerFactory emFactory;
 	protected List<T> insertedEntities = new ArrayList<T>();
 
-	public BaseRepository(Class<T> entityClass) {
+	public BaseRepository(Class<T> entityClass)
+	{
 
 		if (entityClass == null)
 			throw new IllegalArgumentException(
@@ -32,7 +34,8 @@ public class BaseRepository<T extends BaseEntity> {
 		createEntityManager(emFactory);
 	}
 
-	public BaseRepository(Class<T> entityClass, User user) {
+	public BaseRepository(Class<T> entityClass, User user)
+	{
 
 		if (entityClass == null)
 			throw new IllegalArgumentException(
@@ -41,7 +44,7 @@ public class BaseRepository<T extends BaseEntity> {
 		if (user == null)
 			throw new IllegalArgumentException(
 					"ERROR: given user is NULL!");
-		
+
 		this.entityClass = entityClass;
 
 		emFactory = Persistence.createEntityManagerFactory(DB_UNIT_NAME,
@@ -49,49 +52,48 @@ public class BaseRepository<T extends BaseEntity> {
 		createEntityManager(emFactory);
 	}
 
-	private void createEntityManager(EntityManagerFactory factory) {
+	private void createEntityManager(EntityManagerFactory factory)
+	{
 		entityManager = factory.createEntityManager();
 		entityManager.getTransaction().begin();
 	}
-
-	public void saveToDb(T entity) {
-
+	
+	public void saveToDb(T entity)
+	{
 		entityManager.persist(entity);
 		commit();
 
 		this.insertedEntities.add(entity);
 	}
 
-	public void commit(){
+	public void commit()
+	{
 		entityManager.getTransaction().commit();
 		entityManager.getTransaction().begin();
 	}
-	
-	public boolean deleteFromDb(T entity) {
-		try {
 
-			getEntityManager().remove(entity);
-			commit();
-
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
+	public void deleteFromDb(T entity)
+	{
+		getEntityManager().remove(entity);
+		commit();
 	}
 
-	public void closeConnetion() {
-		
+	public void closeConnetion()
+	{
+
 		if (entityManager != null)
 			entityManager.close();
 		if (emFactory != null)
 			emFactory.close();
 	}
 
-	public T find(long id) {
+	public T find(long id)
+	{
 		return entityManager.find(entityClass, id);
 	}
 
-	public List<T> findAll() {
+	public List<T> findAll()
+	{
 		TypedQuery<T> query = entityManager.createQuery(
 				"SELECT entity FROM " + entityClass.getTypeName() + " entity"
 						+ " ORDER BY entity.id", entityClass);
@@ -99,39 +101,47 @@ public class BaseRepository<T extends BaseEntity> {
 		return query.getResultList();
 	}
 
-	public void rollbackInsertedData() {
-		for (T entity : this.insertedEntities) {
+	public void rollbackInsertedData()
+	{
+		for (T entity : this.insertedEntities)
+		{
 			deleteFromDb(entity);
 		}
 		this.insertedEntities.clear();
 	}
 
-	public void rollbackInsertedData(String sequenceName, long sequenceValue) {
+	public void rollbackInsertedData(String sequenceName, long sequenceValue)
+	{
 		rollbackInsertedData();
 		BaseRepository.setSequenceValue(sequenceName, sequenceValue);
 	}
 
-	public EntityManager getEntityManager() {
+	public EntityManager getEntityManager()
+	{
 		return this.entityManager;
 	}
 
-	public Class<T> getEntityClass() {
+	public Class<T> getEntityClass()
+	{
 		return this.entityClass;
 	}
 
-	//returns the last inserted sequence value
-	public static long getLastTableId(String sequence) {
+	// returns the last inserted sequence value
+	public static long getLastTableId(String sequence)
+	{
 		return getNextSequenceValue(sequence) - 1;
 	}
 
-	public static long getNextSequenceValue(String sequence) {
+	public static long getNextSequenceValue(String sequence)
+	{
 		return (long) Persistence.createEntityManagerFactory(DB_UNIT_NAME)
 				.createEntityManager()
 				.createNativeQuery("SELECT nextval('" + sequence + "')")
 				.getSingleResult();
 	}
 
-	public static void setSequenceValue(String sequence, long value) {
+	public static void setSequenceValue(String sequence, long value)
+	{
 		Persistence
 				.createEntityManagerFactory(DB_UNIT_NAME)
 				.createEntityManager()

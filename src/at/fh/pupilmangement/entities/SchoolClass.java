@@ -12,8 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class SchoolClass extends BaseEntity
-{
+public class SchoolClass extends BaseEntity {
 	private static final String SCHOOLCLASS_SEQUENCE = "schoolclass_sequence";
 
 	@SequenceGenerator(name = "ClassIdGenerator", sequenceName = SCHOOLCLASS_SEQUENCE, allocationSize = 1)
@@ -36,124 +35,112 @@ public class SchoolClass extends BaseEntity
 	@ManyToMany
 	private List<Room> rooms = new ArrayList<Room>();
 
-	public SchoolClass()
-	{
+	public SchoolClass() {
 	}
 
-	public SchoolClass(String name, int grade)
-	{
+	public SchoolClass(String name, int grade) {
 		setName(name);
 		setGrade(grade);
 	}
 
-	public SchoolClass(String name, int grade, Teacher mainClassTeacher, ClassRoom mainClassRoom)
-	{
+	public SchoolClass(String name, int grade, Teacher mainClassTeacher,
+			ClassRoom mainClassRoom) {
 		setName(name);
 		setGrade(grade);
 		setClassTeacher(mainClassTeacher);
 		setClassRoom(mainClassRoom);
 	}
 
-	public long getId()
-	{
+	public long getId() {
 		return id;
 	}
 
-	public void setId(long id)
-	{
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public ClassRoom getClassRoom()
-	{
+	public ClassRoom getClassRoom() {
 		return classRoom;
 	}
 
-	public void setClassRoom(ClassRoom classRoom)
-	{
+	public void setClassRoom(ClassRoom classRoom) {
 		this.classRoom = classRoom;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public int getGrade()
-	{
+	public int getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade)
-	{
+	public void setGrade(int grade) {
 		this.grade = grade;
 	}
 
-	public Teacher getClassTeacher()
-	{
+	public Teacher getClassTeacher() {
 		return classTeacher;
 	}
 
-	public void setClassTeacher(Teacher classTeacher)
-	{
+	public void setClassTeacher(Teacher classTeacher) {
 		this.classTeacher = classTeacher;
 		classTeacher.setMainClass(this);
 	}
 
-	public List<Teacher> getTeachers()
-	{
+	public List<Teacher> getTeachers() {
 		return teachers;
 	}
 
-	public void addTeacher(Teacher teacher)
-	{
+	public void addTeacher(Teacher teacher) {
 		if (teacher == null)
-			throw new IllegalArgumentException("ERROR: Couldn't add NULL to teachers!");
+			throw new IllegalArgumentException(
+					"ERROR: Couldn't add NULL to teachers!");
 
 		teachers.add(teacher);
 		teacher.addSchoolClass(this);
 	}
 
-	public List<Room> getRooms()
-	{
+	public List<Room> getRooms() {
 		return rooms;
 	}
-	
-	public void addRoom(Room room)
-	{
+
+	public void addRoom(Room room) {
 		if (room == null)
-			throw new IllegalArgumentException("ERROR: Couldn't add NULL to rooms!");
+			throw new IllegalArgumentException(
+					"ERROR: Couldn't add NULL to rooms!");
 
 		rooms.add(room);
 		room.addSchoolClasses(this);
 	}
 
-	public List<Pupil> getPupils()
-	{
+	public List<Pupil> getPupils() {
 		return pupils;
 	}
 
-	void addPupil(Pupil pupil)
-	{
+	void addPupil(Pupil pupil) {
 
 		if (pupil == null)
-			throw new IllegalArgumentException("ERROR: Couldn't add NULL to pupils!");
+			throw new IllegalArgumentException(
+					"ERROR: Couldn't add NULL to pupils!");
 		pupils.add(pupil);
 	}
 
 	@Override
-	public String toString()
-	{
+	public BaseEntity createClonedEntity() {
+		return new SchoolClass(getName(), getGrade());
+	}
+
+	@Override
+	public String toString() {
 		return "Class: " + getName() + ", " + getGrade();
 	}
 
-	public static String getSequenceName()
-	{
+	public static String getSequenceName() {
 		return SCHOOLCLASS_SEQUENCE;
 	}
 }

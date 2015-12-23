@@ -97,6 +97,11 @@ public class Room extends BaseEntity
 	}
 
 	@Override
+	public BaseEntity createClonedEntity() {
+		return new Room(getMaxPupils(),getPosition(),getRoomType());
+	}
+	
+	@Override
 	public String toString()
 	{
 		return "Room: " + getPosition() + ", " + getMaxPupils();

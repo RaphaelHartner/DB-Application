@@ -57,6 +57,11 @@ public class Teacher extends Person {
 	}
 
 	@Override
+	public BaseEntity createClonedEntity() {
+		return new Teacher(getFirstName(), getLastName(), getBirthDate(),getAbbreviation());
+	}
+	
+	@Override
 	public String toString() {
 		return super.toString() + ", " + getAbbreviation();
 	}

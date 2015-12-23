@@ -11,46 +11,49 @@ import org.junit.Test;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmangement.entities.Person;
 
-public class PersonTest {
+public class PersonTest
+{
 
 	private static BaseRepository<Person> personRepository;
 	private Person currentTestPerson;
 	private static long lastTableId;
 
 	@BeforeClass
-	public static void classSetup(){
+	public static void classSetup()
+	{
 		personRepository = new BaseRepository<Person>(Person.class);
 		lastTableId = BaseRepository.getLastTableId(Person.getSequenceName());
 	}
-	
-	@Before
-	public void setup() {
 
-		currentTestPerson = new Person("Raphael", "Hartner",
-				new GregorianCalendar(1994, 4, 23).getTime());
+	@Before
+	public void setup()
+	{
+		currentTestPerson = new Person("Raphael", "Hartner", new GregorianCalendar(1994, 4, 23).getTime());
 		personRepository.saveToDb(currentTestPerson);
 	}
 
 	@Test
-	public void testPersonFind() {
+	public void testPersonFind()
+	{
 		Assert.assertNotNull(personRepository.find(currentTestPerson.getId()));
 	}
 
 	@Test
-	public void testPersonInsert() {
+	public void testPersonInsert()
+	{
 
-		Person insertedPerson = personRepository
-				.find(currentTestPerson.getId());
+		Person insertedPerson = personRepository.find(currentTestPerson.getId());
 		Assert.assertNotNull(insertedPerson);
 	}
 
 	@Test
-	public void testPersonUpdate() {
+	public void testPersonUpdate()
+	{
 
-		Person insertedPerson = personRepository
-				.find(currentTestPerson.getId());
+		Person insertedPerson = personRepository.find(currentTestPerson.getId());
 		insertedPerson.setFirstName("Georg");
 		insertedPerson.setLastName("Adelmann");
+
 		personRepository.commit();
 		Person updatedPerson = personRepository.find(currentTestPerson.getId());
 
@@ -59,10 +62,9 @@ public class PersonTest {
 	}
 
 	@Test
-	public void testPersonDelete() {
-
-		Person insertedPerson = personRepository
-				.find(currentTestPerson.getId());
+	public void testPersonDelete()
+	{
+		Person insertedPerson = personRepository.find(currentTestPerson.getId());
 		Assert.assertNotNull(insertedPerson);
 		personRepository.deleteFromDb(insertedPerson);
 
@@ -71,9 +73,9 @@ public class PersonTest {
 	}
 
 	@AfterClass
-	public static void classTeardown() {
-		personRepository.rollbackInsertedData(Person.getSequenceName(),
-				lastTableId);
+	public static void classTeardown()
+	{
+		personRepository.rollbackInsertedData(Person.getSequenceName(), lastTableId);
 		personRepository.closeConnetion();
 	}
 

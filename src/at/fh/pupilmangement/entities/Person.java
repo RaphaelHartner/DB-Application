@@ -1,5 +1,6 @@
 package at.fh.pupilmangement.entities;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.DiscriminatorColumn;
@@ -65,6 +66,14 @@ public class Person extends BaseEntity{
 	}
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
+	}
+	public void setBirthDate(Calendar calendar) {
+		setBirthDate(calendar.getTime());
+	}
+	
+	@Override
+	public BaseEntity createClonedEntity() {
+		return new Person(getFirstName(), getLastName(), getBirthDate());
 	}
 	
 	@Override
