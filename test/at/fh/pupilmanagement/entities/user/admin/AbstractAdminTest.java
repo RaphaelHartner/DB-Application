@@ -8,7 +8,6 @@ import org.junit.Test;
 import at.fh.pupilmanagement.models.User;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmangement.entities.BaseEntity;
-import at.fh.pupilmangement.entities.Person;
 
 public abstract class AbstractAdminTest<T extends BaseEntity>
 {
@@ -20,8 +19,7 @@ public abstract class AbstractAdminTest<T extends BaseEntity>
 	@Before
 	public void setup()
 	{
-		adminPermissionRepository = new BaseRepository<T>(getEntityClass(), adminUser);
-		lastTableId = BaseRepository.getLastTableId(Person.getSequenceName());
+		adminPermissionRepository = getAdminPermissionRepository();
 		templateEntity = getTemplateEntity();
 	}
 
@@ -77,16 +75,13 @@ public abstract class AbstractAdminTest<T extends BaseEntity>
 		}
 
 	}
-
+	
 	@After
-	public void classTeardown()
+	public void teardown()
 	{
-		BaseRepository.setSequenceValue(getSequenceName(), lastTableId);
-
 		adminPermissionRepository.rollbackInsertedData();
-		adminPermissionRepository.closeConnetion();
 	}
-
+	
 	private T insertEntity()
 	{
 		@SuppressWarnings("unchecked")
@@ -95,12 +90,8 @@ public abstract class AbstractAdminTest<T extends BaseEntity>
 		return entity;
 	}
 
-	protected abstract Class<T> getEntityClass();
-
+	protected abstract BaseRepository<T> getAdminPermissionRepository();
 	protected abstract T getTemplateEntity();
-
 	protected abstract void modifyEntity(T entity);
-
-	protected abstract String getSequenceName();
 
 }

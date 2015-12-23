@@ -57,7 +57,7 @@ public class BaseRepository<T extends BaseEntity>
 		entityManager = factory.createEntityManager();
 		entityManager.getTransaction().begin();
 	}
-	
+
 	public void saveToDb(T entity)
 	{
 		entityManager.persist(entity);
@@ -68,8 +68,16 @@ public class BaseRepository<T extends BaseEntity>
 
 	public void commit()
 	{
-		entityManager.getTransaction().commit();
-		entityManager.getTransaction().begin();
+		try
+		{
+			entityManager.getTransaction().commit();
+		} catch (Exception e)
+		{
+			throw e;
+		} finally
+		{
+			entityManager.getTransaction().begin();
+		}
 	}
 
 	public void deleteFromDb(T entity)
@@ -80,7 +88,6 @@ public class BaseRepository<T extends BaseEntity>
 
 	public void closeConnetion()
 	{
-
 		if (entityManager != null)
 			entityManager.close();
 		if (emFactory != null)

@@ -2,14 +2,41 @@ package at.fh.pupilmanagement.entities.user.readonly;
 
 import java.util.GregorianCalendar;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmangement.entities.Pupil;
 
 public class PupilReadOnlyTest extends AbstractReadOnlyTest<Pupil>
 {
-	@Override
-	protected Class<Pupil> getEntityClass()
+	private static BaseRepository<Pupil> lowerPermissionRepository = new BaseRepository<Pupil>(Pupil.class,lowerPermissionUser);
+	private static BaseRepository<Pupil> adminPermissionRepository = new BaseRepository<Pupil>(Pupil.class,adminPermissionUser);
+	private static long lastTableId;
+	
+	@BeforeClass
+	public static void classSetup(){
+		lastTableId = BaseRepository.getLastTableId(Pupil.getSequenceName());
+	}
+	
+	@AfterClass
+	public static void classTeardown()
 	{
-		return Pupil.class;
+		BaseRepository.setSequenceValue(Pupil.getSequenceName(), lastTableId);
+		lowerPermissionRepository.closeConnetion();
+		adminPermissionRepository.closeConnetion();
+	}
+
+	@Override
+	protected BaseRepository<Pupil> getLowerPermissionRepository()
+	{
+		return lowerPermissionRepository;
+	}
+
+	@Override
+	protected BaseRepository<Pupil> getAdminPermissionRepository()
+	{
+		return adminPermissionRepository;
 	}
 	
 	@Override
@@ -23,11 +50,4 @@ public class PupilReadOnlyTest extends AbstractReadOnlyTest<Pupil>
 	{
 		entity.setYearOfEntry((short)2013);
 	}
-
-	@Override
-	protected String getSequenceName()
-	{
-		return Pupil.getSequenceName();
-	}
-
 }

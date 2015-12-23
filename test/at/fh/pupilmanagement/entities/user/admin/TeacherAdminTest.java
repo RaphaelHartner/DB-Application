@@ -2,14 +2,33 @@ package at.fh.pupilmanagement.entities.user.admin;
 
 import java.util.GregorianCalendar;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmangement.entities.Teacher;
 
 public class TeacherAdminTest extends AbstractAdminTest<Teacher>
 {
-	@Override
-	protected Class<Teacher> getEntityClass()
+	private static BaseRepository<Teacher> adminPermissionRepository = new BaseRepository<Teacher>(Teacher.class,adminUser);
+	private static long lastTableId;
+	
+	@BeforeClass
+	public static void classSetup(){
+		lastTableId = BaseRepository.getLastTableId(Teacher.getSequenceName());
+	}
+	
+	@AfterClass
+	public static void classTeardown()
 	{
-		return Teacher.class;
+		BaseRepository.setSequenceValue(Teacher.getSequenceName(), lastTableId);
+		adminPermissionRepository.closeConnetion();
+	}
+
+	@Override
+	protected BaseRepository<Teacher> getAdminPermissionRepository()
+	{
+		return adminPermissionRepository;
 	}
 
 	@Override
@@ -23,11 +42,4 @@ public class TeacherAdminTest extends AbstractAdminTest<Teacher>
 	{
 		entity.setAbbreviation("HartRap");
 	}
-
-	@Override
-	protected String getSequenceName()
-	{
-		return Teacher.getSequenceName();
-	}
-
 }

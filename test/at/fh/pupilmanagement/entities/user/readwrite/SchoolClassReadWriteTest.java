@@ -1,13 +1,40 @@
 package at.fh.pupilmanagement.entities.user.readwrite;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmangement.entities.SchoolClass;
 
 public class SchoolClassReadWriteTest extends AbstractReadWriteTest<SchoolClass>
 {
-	@Override
-	protected Class<SchoolClass> getEntityClass()
+	private static BaseRepository<SchoolClass> lowerPermissionRepository = new BaseRepository<SchoolClass>(SchoolClass.class,lowerPermissionUser);
+	private static BaseRepository<SchoolClass> adminPermissionRepository = new BaseRepository<SchoolClass>(SchoolClass.class,adminPermissionUser);
+	private static long lastTableId;
+	
+	@BeforeClass
+	public static void classSetup(){
+		lastTableId = BaseRepository.getLastTableId(SchoolClass.getSequenceName());
+	}
+	
+	@AfterClass
+	public static void classTeardown()
 	{
-		return SchoolClass.class;
+		BaseRepository.setSequenceValue(SchoolClass.getSequenceName(), lastTableId);
+		lowerPermissionRepository.closeConnetion();
+		adminPermissionRepository.closeConnetion();
+	}
+
+	@Override
+	protected BaseRepository<SchoolClass> getLowerPermissionRepository()
+	{
+		return lowerPermissionRepository;
+	}
+
+	@Override
+	protected BaseRepository<SchoolClass> getAdminPermissionRepository()
+	{
+		return adminPermissionRepository;
 	}
 	
 	@Override
@@ -21,11 +48,4 @@ public class SchoolClassReadWriteTest extends AbstractReadWriteTest<SchoolClass>
 	{
 		entity.setGrade(4);;
 	}
-
-	@Override
-	protected String getSequenceName()
-	{
-		return SchoolClass.getSequenceName();
-	}
-
 }

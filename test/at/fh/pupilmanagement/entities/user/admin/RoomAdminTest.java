@@ -1,15 +1,33 @@
 package at.fh.pupilmanagement.entities.user.admin;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmangement.entities.Room;
 import at.fh.pupilmangement.entities.RoomType;
 
 public class RoomAdminTest extends AbstractAdminTest<Room>
 {
+	private static BaseRepository<Room> adminPermissionRepository = new BaseRepository<Room>(Room.class,adminUser);
+	private static long lastTableId;
+	
+	@BeforeClass
+	public static void classSetup(){
+		lastTableId = BaseRepository.getLastTableId(Room.getSequenceName());
+	}
+	
+	@AfterClass
+	public static void classTeardown()
+	{
+		BaseRepository.setSequenceValue(Room.getSequenceName(), lastTableId);
+		adminPermissionRepository.closeConnetion();
+	}
 
 	@Override
-	protected Class<Room> getEntityClass()
+	protected BaseRepository<Room> getAdminPermissionRepository()
 	{
-		return Room.class;
+		return adminPermissionRepository;
 	}
 
 	@Override
@@ -23,11 +41,4 @@ public class RoomAdminTest extends AbstractAdminTest<Room>
 	{
 		entity.setMaxPupils(35);
 	}
-
-	@Override
-	protected String getSequenceName()
-	{
-		return Room.getSequenceName();
-	}
-
 }

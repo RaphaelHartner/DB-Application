@@ -2,15 +2,35 @@ package at.fh.pupilmanagement.entities.user.admin;
 
 import java.util.GregorianCalendar;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmangement.entities.Person;
 
 public class PersonAdminTest extends AbstractAdminTest<Person>
 {
-	@Override
-	protected Class<Person> getEntityClass()
-	{
-		return Person.class;
+	private static BaseRepository<Person> adminPermissionRepository = new BaseRepository<Person>(Person.class,adminUser);
+	private static long lastTableId;
+	
+	@BeforeClass
+	public static void classSetup(){
+		lastTableId = BaseRepository.getLastTableId(Person.getSequenceName());
 	}
+	
+	@AfterClass
+	public static void classTeardown()
+	{
+		BaseRepository.setSequenceValue(Person.getSequenceName(), lastTableId);
+		adminPermissionRepository.closeConnetion();
+	}
+
+	@Override
+	protected BaseRepository<Person> getAdminPermissionRepository()
+	{
+		return adminPermissionRepository;
+	}
+
 	
 	@Override
 	protected Person getTemplateEntity()
@@ -23,11 +43,4 @@ public class PersonAdminTest extends AbstractAdminTest<Person>
 	{
 		entity.setFirstName("Georg");
 	}
-
-	@Override
-	protected String getSequenceName()
-	{
-		return Person.getSequenceName();
-	}
-
 }

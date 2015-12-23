@@ -1,13 +1,32 @@
 package at.fh.pupilmanagement.entities.user.admin;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
+import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmangement.entities.SchoolClass;
 
 public class SchoolClassAdminTest extends AbstractAdminTest<SchoolClass>
 {
-	@Override
-	protected Class<SchoolClass> getEntityClass()
+	private static BaseRepository<SchoolClass> adminPermissionRepository = new BaseRepository<SchoolClass>(SchoolClass.class,adminUser);
+	private static long lastTableId;
+	
+	@BeforeClass
+	public static void classSetup(){
+		lastTableId = BaseRepository.getLastTableId(SchoolClass.getSequenceName());
+	}
+	
+	@AfterClass
+	public static void classTeardown()
 	{
-		return SchoolClass.class;
+		BaseRepository.setSequenceValue(SchoolClass.getSequenceName(), lastTableId);
+		adminPermissionRepository.closeConnetion();
+	}
+
+	@Override
+	protected BaseRepository<SchoolClass> getAdminPermissionRepository()
+	{
+		return adminPermissionRepository;
 	}
 	
 	@Override
@@ -21,11 +40,4 @@ public class SchoolClassAdminTest extends AbstractAdminTest<SchoolClass>
 	{
 		entity.setGrade(4);;
 	}
-
-	@Override
-	protected String getSequenceName()
-	{
-		return SchoolClass.getSequenceName();
-	}
-
 }
