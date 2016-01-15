@@ -82,6 +82,7 @@ public class BaseRepository<T extends BaseEntity>
 
 	public void deleteFromDb(T entity)
 	{
+		entity = getEntityManager().merge(entity);
 		getEntityManager().remove(entity);
 		commit();
 	}

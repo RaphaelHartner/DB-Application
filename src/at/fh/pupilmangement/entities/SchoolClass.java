@@ -89,7 +89,10 @@ public class SchoolClass extends BaseEntity {
 
 	public void setClassTeacher(Teacher classTeacher) {
 		this.classTeacher = classTeacher;
-		classTeacher.setMainClass(this);
+		if (classTeacher != null)
+		{
+			classTeacher.setMainClass(this);
+		}
 	}
 
 	public List<Teacher> getTeachers() {

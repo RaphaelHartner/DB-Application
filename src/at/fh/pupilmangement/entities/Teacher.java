@@ -32,7 +32,7 @@ public class Teacher extends Person {
 		return mainClass;
 	}
 
-	void setMainClass(SchoolClass mainClass) {
+	public void setMainClass(SchoolClass mainClass) {
 		this.mainClass = mainClass;
 	}
 
@@ -40,7 +40,7 @@ public class Teacher extends Person {
 		return schoolclasses;
 	}
 
-	void addSchoolClass(SchoolClass schoolClass) {
+	public void addSchoolClass(SchoolClass schoolClass) {
 		if (schoolClass == null)
 			throw new IllegalArgumentException(
 					"ERROR: Couldn't add NULL to classes!");
