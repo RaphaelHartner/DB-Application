@@ -12,13 +12,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.PupilRepository;
 import at.fh.pupilmanagement.repositories.SchoolClassRepository;
 import at.fh.pupilmangement.entities.Pupil;
 import at.fh.pupilmangement.entities.SchoolClass;
 
 public class PupilSchoolClassTest
 {
-	private static BaseRepository<Pupil> pupilRepository;
+	private static PupilRepository pupilRepository;
 	private Pupil currentTestPupil;
 	private static long lastPupilTableId;
 
@@ -29,7 +30,7 @@ public class PupilSchoolClassTest
 	@BeforeClass
 	public static void classSetup()
 	{
-		pupilRepository = new BaseRepository<Pupil>(Pupil.class);
+		pupilRepository = new PupilRepository();
 		lastPupilTableId = BaseRepository.getLastTableId(Pupil.getSequenceName());
 
 		schoolClassRepository = new SchoolClassRepository();

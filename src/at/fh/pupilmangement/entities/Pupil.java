@@ -5,11 +5,19 @@ import java.util.Date;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "pupil")
 @DiscriminatorValue(value = "pupil")
+@NamedQueries({
+	@NamedQuery(name="Pupil.findAllEntryThisYear",
+			query = "SELECT p FROM Pupil p "+
+					"WHERE p.yearOfEntry = :entry")
+})
+
 public class Pupil extends Person
 {
 
@@ -45,7 +53,7 @@ public class Pupil extends Person
 		this.schoolClass = schoolClass;
 		if (schoolClass != null)
 		{
-		this.schoolClass.addPupil(this);
+			this.schoolClass.addPupil(this);
 		}
 	}
 

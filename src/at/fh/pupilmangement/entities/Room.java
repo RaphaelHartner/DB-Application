@@ -13,12 +13,19 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "concrete_room_type")
 @DiscriminatorValue(value = "room")
+@NamedQueries({
+	@NamedQuery(name="Room.findRoomsByType",
+			query="SELECT r FROM Room r " +
+				"WHERE r.type = :type")
+})
 public class Room extends BaseEntity
 {
 	private static final String ROOM_SEQUENCE = "room_sequence";

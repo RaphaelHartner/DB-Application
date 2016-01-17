@@ -9,17 +9,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.PupilRepository;
 import at.fh.pupilmangement.entities.Pupil;
 
 public class PupilTest {
 
-	private static BaseRepository<Pupil> pupilRepository;
+	private static PupilRepository pupilRepository;
 	private Pupil currentTestPupil;
 	private static long lastTableId;
 
 	@BeforeClass
 	public static void classSetup() {
-		pupilRepository = new BaseRepository<Pupil>(Pupil.class);
+		pupilRepository = new PupilRepository();
 		lastTableId = BaseRepository.getLastTableId(Pupil.getSequenceName());
 	}
 
@@ -73,5 +74,4 @@ public class PupilTest {
 				lastTableId);
 		pupilRepository.closeConnetion();
 	}
-
 }

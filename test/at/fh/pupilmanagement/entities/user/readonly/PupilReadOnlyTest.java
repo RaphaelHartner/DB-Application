@@ -6,12 +6,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.PupilRepository;
 import at.fh.pupilmangement.entities.Pupil;
 
 public class PupilReadOnlyTest extends AbstractReadOnlyTest<Pupil>
 {
-	private static BaseRepository<Pupil> lowerPermissionRepository = new BaseRepository<Pupil>(Pupil.class,lowerPermissionUser);
-	private static BaseRepository<Pupil> adminPermissionRepository = new BaseRepository<Pupil>(Pupil.class,adminPermissionUser);
+	private static PupilRepository lowerPermissionRepository = new PupilRepository(lowerPermissionUser);
+	private static PupilRepository adminPermissionRepository = new PupilRepository(adminPermissionUser);
 	private static long lastTableId;
 	
 	@BeforeClass

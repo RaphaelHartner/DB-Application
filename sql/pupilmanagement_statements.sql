@@ -4,25 +4,7 @@
 
 -- Dumped from database version 9.3.5
 -- Dumped by pg_dump version 9.3.1
--- Started on 2015-12-12 12:27:04
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-DROP DATABASE pupilmanagement;
---
--- TOC entry 2881 (class 1262 OID 22904)
--- Name: pupilmanagement; Type: DATABASE; Schema: -; Owner: -
---
-
-CREATE DATABASE pupilmanagement WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
-
-
-\connect pupilmanagement
+-- Started on 2016-01-17 20:24:34
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -32,44 +14,29 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- TOC entry 5 (class 2615 OID 2200)
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
+-- TOC entry 6 (class 2615 OID 24077)
+-- Name: pupilmanagement; Type: SCHEMA; Schema: -; Owner: pupilmanagement
 --
 
-CREATE SCHEMA public;
+CREATE SCHEMA pupilmanagement;
 
 
---
--- TOC entry 2882 (class 0 OID 0)
--- Dependencies: 5
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
+ALTER SCHEMA pupilmanagement OWNER TO pupilmanagement;
 
 --
--- TOC entry 181 (class 3079 OID 12617)
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+-- TOC entry 2886 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: SCHEMA pupilmanagement; Type: COMMENT; Schema: -; Owner: pupilmanagement
 --
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+COMMENT ON SCHEMA pupilmanagement IS 'schema for the pupil management project';
 
 
---
--- TOC entry 2883 (class 0 OID 0)
--- Dependencies: 181
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
-SET search_path = public, pg_catalog;
+SET search_path = pupilmanagement, pg_catalog;
 
 --
--- TOC entry 170 (class 1259 OID 23845)
--- Name: room_sequence; Type: SEQUENCE; Schema: public; Owner: -
+-- TOC entry 171 (class 1259 OID 24078)
+-- Name: room_sequence; Type: SEQUENCE; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 CREATE SEQUENCE room_sequence
@@ -80,11 +47,15 @@ CREATE SEQUENCE room_sequence
     CACHE 1;
 
 
+ALTER TABLE pupilmanagement.room_sequence OWNER TO pupilmanagement;
+
+SET default_tablespace = '';
+
 SET default_with_oids = false;
 
 --
--- TOC entry 173 (class 1259 OID 23853)
--- Name: classroom; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 172 (class 1259 OID 24080)
+-- Name: classroom; Type: TABLE; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 CREATE TABLE classroom (
@@ -92,9 +63,11 @@ CREATE TABLE classroom (
 );
 
 
+ALTER TABLE pupilmanagement.classroom OWNER TO pupilmanagement;
+
 --
--- TOC entry 171 (class 1259 OID 23847)
--- Name: person_sequence; Type: SEQUENCE; Schema: public; Owner: -
+-- TOC entry 173 (class 1259 OID 24084)
+-- Name: person_sequence; Type: SEQUENCE; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 CREATE SEQUENCE person_sequence
@@ -105,9 +78,11 @@ CREATE SEQUENCE person_sequence
     CACHE 1;
 
 
+ALTER TABLE pupilmanagement.person_sequence OWNER TO pupilmanagement;
+
 --
--- TOC entry 174 (class 1259 OID 23857)
--- Name: person; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 174 (class 1259 OID 24086)
+-- Name: person; Type: TABLE; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 CREATE TABLE person (
@@ -120,9 +95,11 @@ CREATE TABLE person (
 );
 
 
+ALTER TABLE pupilmanagement.person OWNER TO pupilmanagement;
+
 --
--- TOC entry 175 (class 1259 OID 23865)
--- Name: pupil; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 175 (class 1259 OID 24094)
+-- Name: pupil; Type: TABLE; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 CREATE TABLE pupil (
@@ -132,9 +109,11 @@ CREATE TABLE pupil (
 );
 
 
+ALTER TABLE pupilmanagement.pupil OWNER TO pupilmanagement;
+
 --
--- TOC entry 176 (class 1259 OID 23869)
--- Name: room; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 176 (class 1259 OID 24098)
+-- Name: room; Type: TABLE; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 CREATE TABLE room (
@@ -146,9 +125,11 @@ CREATE TABLE room (
 );
 
 
+ALTER TABLE pupilmanagement.room OWNER TO pupilmanagement;
+
 --
--- TOC entry 172 (class 1259 OID 23851)
--- Name: schoolclass_sequence; Type: SEQUENCE; Schema: public; Owner: -
+-- TOC entry 177 (class 1259 OID 24105)
+-- Name: schoolclass_sequence; Type: SEQUENCE; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 CREATE SEQUENCE schoolclass_sequence
@@ -159,9 +140,11 @@ CREATE SEQUENCE schoolclass_sequence
     CACHE 1;
 
 
+ALTER TABLE pupilmanagement.schoolclass_sequence OWNER TO pupilmanagement;
+
 --
--- TOC entry 177 (class 1259 OID 23880)
--- Name: schoolclass; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 178 (class 1259 OID 24107)
+-- Name: schoolclass; Type: TABLE; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 CREATE TABLE schoolclass (
@@ -173,9 +156,11 @@ CREATE TABLE schoolclass (
 );
 
 
+ALTER TABLE pupilmanagement.schoolclass OWNER TO pupilmanagement;
+
 --
--- TOC entry 178 (class 1259 OID 23884)
--- Name: schoolclass_room; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 179 (class 1259 OID 24111)
+-- Name: schoolclass_room; Type: TABLE; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 CREATE TABLE schoolclass_room (
@@ -184,9 +169,11 @@ CREATE TABLE schoolclass_room (
 );
 
 
+ALTER TABLE pupilmanagement.schoolclass_room OWNER TO pupilmanagement;
+
 --
--- TOC entry 179 (class 1259 OID 23887)
--- Name: schoolclass_teacher; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 180 (class 1259 OID 24114)
+-- Name: schoolclass_teacher; Type: TABLE; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 CREATE TABLE schoolclass_teacher (
@@ -195,9 +182,11 @@ CREATE TABLE schoolclass_teacher (
 );
 
 
+ALTER TABLE pupilmanagement.schoolclass_teacher OWNER TO pupilmanagement;
+
 --
--- TOC entry 180 (class 1259 OID 23890)
--- Name: teacher; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 181 (class 1259 OID 24117)
+-- Name: teacher; Type: TABLE; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 CREATE TABLE teacher (
@@ -206,103 +195,111 @@ CREATE TABLE teacher (
 );
 
 
---
--- TOC entry 2869 (class 0 OID 23853)
--- Dependencies: 173
--- Data for Name: classroom; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO classroom (id) VALUES (1);
-
+ALTER TABLE pupilmanagement.teacher OWNER TO pupilmanagement;
 
 --
--- TOC entry 2870 (class 0 OID 23857)
--- Dependencies: 174
--- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- TOC entry 2884 (class 0 OID 0)
--- Dependencies: 171
--- Name: person_sequence; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('person_sequence', 36, true);
-
-
---
--- TOC entry 2871 (class 0 OID 23865)
--- Dependencies: 175
--- Data for Name: pupil; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- TOC entry 2872 (class 0 OID 23869)
--- Dependencies: 176
--- Data for Name: room; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO room (id, type, maxpupils, "position", concrete_room_type) VALUES (1, 'Klassenzimmer', 30, 'A.2.12', NULL);
-
-
---
--- TOC entry 2885 (class 0 OID 0)
--- Dependencies: 170
--- Name: room_sequence; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('room_sequence', 3, true);
-
-
---
--- TOC entry 2873 (class 0 OID 23880)
--- Dependencies: 177
--- Data for Name: schoolclass; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO schoolclass (id, name, grade, classroom_id, classteacher_id) VALUES (5, 'testsetnull', 3, NULL, NULL);
-
-
---
--- TOC entry 2874 (class 0 OID 23884)
--- Dependencies: 178
--- Data for Name: schoolclass_room; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- TOC entry 2886 (class 0 OID 0)
+-- TOC entry 2872 (class 0 OID 24080)
 -- Dependencies: 172
--- Name: schoolclass_sequence; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Data for Name: classroom; Type: TABLE DATA; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
-SELECT pg_catalog.setval('schoolclass_sequence', 7, true);
 
 
 --
--- TOC entry 2875 (class 0 OID 23887)
+-- TOC entry 2874 (class 0 OID 24086)
+-- Dependencies: 174
+-- Data for Name: person; Type: TABLE DATA; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+
+
+--
+-- TOC entry 2899 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: person_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+SELECT pg_catalog.setval('person_sequence', 284, true);
+
+
+--
+-- TOC entry 2875 (class 0 OID 24094)
+-- Dependencies: 175
+-- Data for Name: pupil; Type: TABLE DATA; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+
+
+--
+-- TOC entry 2876 (class 0 OID 24098)
+-- Dependencies: 176
+-- Data for Name: room; Type: TABLE DATA; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+
+
+--
+-- TOC entry 2900 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: room_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+SELECT pg_catalog.setval('room_sequence', 273, true);
+
+
+--
+-- TOC entry 2878 (class 0 OID 24107)
+-- Dependencies: 178
+-- Data for Name: schoolclass; Type: TABLE DATA; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+
+
+--
+-- TOC entry 2879 (class 0 OID 24111)
 -- Dependencies: 179
--- Data for Name: schoolclass_teacher; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: schoolclass_room; Type: TABLE DATA; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 
 
 --
--- TOC entry 2876 (class 0 OID 23890)
+-- TOC entry 2901 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: schoolclass_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+SELECT pg_catalog.setval('schoolclass_sequence', 293, true);
+
+
+--
+-- TOC entry 2880 (class 0 OID 24114)
 -- Dependencies: 180
--- Data for Name: teacher; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: schoolclass_teacher; Type: TABLE DATA; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 
 
 --
--- TOC entry 2731 (class 2606 OID 23895)
--- Name: classroom_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2881 (class 0 OID 24117)
+-- Dependencies: 181
+-- Data for Name: teacher; Type: TABLE DATA; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+
+
+--
+-- TOC entry 2744 (class 2606 OID 24211)
+-- Name: classroom_id_unique; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
+--
+
+ALTER TABLE ONLY schoolclass
+    ADD CONSTRAINT classroom_id_unique UNIQUE (classroom_id);
+
+
+--
+-- TOC entry 2732 (class 2606 OID 24122)
+-- Name: classroom_pkey; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY classroom
@@ -310,8 +307,17 @@ ALTER TABLE ONLY classroom
 
 
 --
--- TOC entry 2735 (class 2606 OID 23897)
--- Name: id_schoolclass_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2746 (class 2606 OID 24213)
+-- Name: classteacher_id_unique; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
+--
+
+ALTER TABLE ONLY schoolclass
+    ADD CONSTRAINT classteacher_id_unique UNIQUE (classteacher_id);
+
+
+--
+-- TOC entry 2736 (class 2606 OID 24124)
+-- Name: id_schoolclass_unique; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY pupil
@@ -319,8 +325,8 @@ ALTER TABLE ONLY pupil
 
 
 --
--- TOC entry 2743 (class 2606 OID 23899)
--- Name: name_grade_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2748 (class 2606 OID 24207)
+-- Name: name_grade_unique; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY schoolclass
@@ -328,8 +334,8 @@ ALTER TABLE ONLY schoolclass
 
 
 --
--- TOC entry 2733 (class 2606 OID 23901)
--- Name: person_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2734 (class 2606 OID 24128)
+-- Name: person_pkey; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY person
@@ -337,8 +343,8 @@ ALTER TABLE ONLY person
 
 
 --
--- TOC entry 2737 (class 2606 OID 23903)
--- Name: pupil_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2738 (class 2606 OID 24130)
+-- Name: pupil_pkey; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY pupil
@@ -346,8 +352,8 @@ ALTER TABLE ONLY pupil
 
 
 --
--- TOC entry 2739 (class 2606 OID 23905)
--- Name: room_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2740 (class 2606 OID 24132)
+-- Name: room_pkey; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY room
@@ -355,8 +361,8 @@ ALTER TABLE ONLY room
 
 
 --
--- TOC entry 2745 (class 2606 OID 23909)
--- Name: schoolclass_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2750 (class 2606 OID 24134)
+-- Name: schoolclass_pkey; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY schoolclass
@@ -364,8 +370,8 @@ ALTER TABLE ONLY schoolclass
 
 
 --
--- TOC entry 2747 (class 2606 OID 23911)
--- Name: schoolclass_room_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2752 (class 2606 OID 24136)
+-- Name: schoolclass_room_pkey; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY schoolclass_room
@@ -373,8 +379,8 @@ ALTER TABLE ONLY schoolclass_room
 
 
 --
--- TOC entry 2749 (class 2606 OID 23913)
--- Name: schoolclass_teacher_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2754 (class 2606 OID 24138)
+-- Name: schoolclass_teacher_pkey; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY schoolclass_teacher
@@ -382,8 +388,8 @@ ALTER TABLE ONLY schoolclass_teacher
 
 
 --
--- TOC entry 2751 (class 2606 OID 23915)
--- Name: teacher_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2756 (class 2606 OID 24140)
+-- Name: teacher_pkey; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY teacher
@@ -391,8 +397,8 @@ ALTER TABLE ONLY teacher
 
 
 --
--- TOC entry 2741 (class 2606 OID 23960)
--- Name: type_position_unique; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2742 (class 2606 OID 24209)
+-- Name: type_position_unique; Type: CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement; Tablespace: 
 --
 
 ALTER TABLE ONLY room
@@ -400,8 +406,8 @@ ALTER TABLE ONLY room
 
 
 --
--- TOC entry 2752 (class 2606 OID 23918)
--- Name: pupil_schoolclass_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2757 (class 2606 OID 24143)
+-- Name: pupil_schoolclass_id_fkey; Type: FK CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 ALTER TABLE ONLY pupil
@@ -409,8 +415,8 @@ ALTER TABLE ONLY pupil
 
 
 --
--- TOC entry 2753 (class 2606 OID 24045)
--- Name: schoolclass_classroom_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2758 (class 2606 OID 24148)
+-- Name: schoolclass_classroom_id_fkey; Type: FK CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 ALTER TABLE ONLY schoolclass
@@ -418,8 +424,8 @@ ALTER TABLE ONLY schoolclass
 
 
 --
--- TOC entry 2754 (class 2606 OID 24050)
--- Name: schoolclass_classteacher_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2759 (class 2606 OID 24153)
+-- Name: schoolclass_classteacher_id_fkey; Type: FK CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 ALTER TABLE ONLY schoolclass
@@ -427,8 +433,8 @@ ALTER TABLE ONLY schoolclass
 
 
 --
--- TOC entry 2755 (class 2606 OID 24055)
--- Name: schoolclass_room__id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2760 (class 2606 OID 24158)
+-- Name: schoolclass_room__id_fkey; Type: FK CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 ALTER TABLE ONLY schoolclass_room
@@ -436,8 +442,8 @@ ALTER TABLE ONLY schoolclass_room
 
 
 --
--- TOC entry 2756 (class 2606 OID 24060)
--- Name: schoolclass_room_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2761 (class 2606 OID 24163)
+-- Name: schoolclass_room_id_fkey; Type: FK CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 ALTER TABLE ONLY schoolclass_room
@@ -445,8 +451,8 @@ ALTER TABLE ONLY schoolclass_room
 
 
 --
--- TOC entry 2757 (class 2606 OID 24065)
--- Name: schoolclass_teacher_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2762 (class 2606 OID 24168)
+-- Name: schoolclass_teacher_id_fkey; Type: FK CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 ALTER TABLE ONLY schoolclass_teacher
@@ -454,15 +460,179 @@ ALTER TABLE ONLY schoolclass_teacher
 
 
 --
--- TOC entry 2758 (class 2606 OID 24070)
--- Name: schoolclass_teacher_schoolclass_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 2763 (class 2606 OID 24173)
+-- Name: schoolclass_teacher_schoolclass_id_fkey; Type: FK CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 ALTER TABLE ONLY schoolclass_teacher
     ADD CONSTRAINT schoolclass_teacher_schoolclass_id_fkey FOREIGN KEY (schoolclasses_id) REFERENCES schoolclass(id) ON DELETE CASCADE;
 
 
--- Completed on 2015-12-12 12:27:04
+--
+-- TOC entry 2887 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: pupilmanagement; Type: ACL; Schema: -; Owner: pupilmanagement
+--
+
+REVOKE ALL ON SCHEMA pupilmanagement FROM PUBLIC;
+REVOKE ALL ON SCHEMA pupilmanagement FROM pupilmanagement;
+GRANT ALL ON SCHEMA pupilmanagement TO pupilmanagement;
+GRANT ALL ON SCHEMA pupilmanagement TO pupilmanagement_admin_role;
+GRANT USAGE ON SCHEMA pupilmanagement TO pupilmanagement_reader_role;
+
+
+--
+-- TOC entry 2888 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: room_sequence; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON SEQUENCE room_sequence FROM PUBLIC;
+REVOKE ALL ON SEQUENCE room_sequence FROM pupilmanagement;
+GRANT ALL ON SEQUENCE room_sequence TO pupilmanagement;
+GRANT SELECT ON SEQUENCE room_sequence TO pupilmanagement_reader_role;
+GRANT UPDATE ON SEQUENCE room_sequence TO pupilmanagement_writer_role;
+
+
+--
+-- TOC entry 2889 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: classroom; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON TABLE classroom FROM PUBLIC;
+REVOKE ALL ON TABLE classroom FROM pupilmanagement;
+GRANT ALL ON TABLE classroom TO pupilmanagement;
+GRANT SELECT ON TABLE classroom TO pupilmanagement_reader_role;
+GRANT INSERT,UPDATE ON TABLE classroom TO pupilmanagement_writer_role;
+GRANT DELETE ON TABLE classroom TO pupilmanagement_admin_role;
+
+
+--
+-- TOC entry 2890 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: person_sequence; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON SEQUENCE person_sequence FROM PUBLIC;
+REVOKE ALL ON SEQUENCE person_sequence FROM pupilmanagement;
+GRANT ALL ON SEQUENCE person_sequence TO pupilmanagement;
+GRANT SELECT ON SEQUENCE person_sequence TO pupilmanagement_reader_role;
+GRANT UPDATE ON SEQUENCE person_sequence TO pupilmanagement_writer_role;
+
+
+--
+-- TOC entry 2891 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: person; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON TABLE person FROM PUBLIC;
+REVOKE ALL ON TABLE person FROM pupilmanagement;
+GRANT ALL ON TABLE person TO pupilmanagement;
+GRANT SELECT ON TABLE person TO pupilmanagement_reader_role;
+GRANT INSERT,UPDATE ON TABLE person TO pupilmanagement_writer_role;
+GRANT DELETE ON TABLE person TO pupilmanagement_admin_role;
+
+
+--
+-- TOC entry 2892 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: pupil; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON TABLE pupil FROM PUBLIC;
+REVOKE ALL ON TABLE pupil FROM pupilmanagement;
+GRANT ALL ON TABLE pupil TO pupilmanagement;
+GRANT SELECT ON TABLE pupil TO pupilmanagement_reader_role;
+GRANT INSERT,UPDATE ON TABLE pupil TO pupilmanagement_writer_role;
+GRANT DELETE ON TABLE pupil TO pupilmanagement_admin_role;
+
+
+--
+-- TOC entry 2893 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: room; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON TABLE room FROM PUBLIC;
+REVOKE ALL ON TABLE room FROM pupilmanagement;
+GRANT ALL ON TABLE room TO pupilmanagement;
+GRANT SELECT ON TABLE room TO pupilmanagement_reader_role;
+GRANT INSERT,UPDATE ON TABLE room TO pupilmanagement_writer_role;
+GRANT DELETE ON TABLE room TO pupilmanagement_admin_role;
+
+
+--
+-- TOC entry 2894 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: schoolclass_sequence; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON SEQUENCE schoolclass_sequence FROM PUBLIC;
+REVOKE ALL ON SEQUENCE schoolclass_sequence FROM pupilmanagement;
+GRANT ALL ON SEQUENCE schoolclass_sequence TO pupilmanagement;
+GRANT SELECT ON SEQUENCE schoolclass_sequence TO pupilmanagement_reader_role;
+GRANT UPDATE ON SEQUENCE schoolclass_sequence TO pupilmanagement_writer_role;
+
+
+--
+-- TOC entry 2895 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: schoolclass; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON TABLE schoolclass FROM PUBLIC;
+REVOKE ALL ON TABLE schoolclass FROM pupilmanagement;
+GRANT ALL ON TABLE schoolclass TO pupilmanagement;
+GRANT SELECT ON TABLE schoolclass TO pupilmanagement_reader_role;
+GRANT INSERT,UPDATE ON TABLE schoolclass TO pupilmanagement_writer_role;
+GRANT DELETE ON TABLE schoolclass TO pupilmanagement_admin_role;
+
+
+--
+-- TOC entry 2896 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: schoolclass_room; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON TABLE schoolclass_room FROM PUBLIC;
+REVOKE ALL ON TABLE schoolclass_room FROM pupilmanagement;
+GRANT ALL ON TABLE schoolclass_room TO pupilmanagement;
+GRANT SELECT ON TABLE schoolclass_room TO pupilmanagement_reader_role;
+GRANT INSERT,UPDATE ON TABLE schoolclass_room TO pupilmanagement_writer_role;
+GRANT DELETE ON TABLE schoolclass_room TO pupilmanagement_admin_role;
+
+
+--
+-- TOC entry 2897 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: schoolclass_teacher; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON TABLE schoolclass_teacher FROM PUBLIC;
+REVOKE ALL ON TABLE schoolclass_teacher FROM pupilmanagement;
+GRANT ALL ON TABLE schoolclass_teacher TO pupilmanagement;
+GRANT SELECT ON TABLE schoolclass_teacher TO pupilmanagement_reader_role;
+GRANT INSERT,UPDATE ON TABLE schoolclass_teacher TO pupilmanagement_writer_role;
+GRANT DELETE ON TABLE schoolclass_teacher TO pupilmanagement_admin_role;
+
+
+--
+-- TOC entry 2898 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: teacher; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
+--
+
+REVOKE ALL ON TABLE teacher FROM PUBLIC;
+REVOKE ALL ON TABLE teacher FROM pupilmanagement;
+GRANT ALL ON TABLE teacher TO pupilmanagement;
+GRANT SELECT ON TABLE teacher TO pupilmanagement_reader_role;
+GRANT INSERT,UPDATE ON TABLE teacher TO pupilmanagement_writer_role;
+GRANT DELETE ON TABLE teacher TO pupilmanagement_admin_role;
+
+
+-- Completed on 2016-01-17 20:24:46
 
 --
 -- PostgreSQL database dump complete
