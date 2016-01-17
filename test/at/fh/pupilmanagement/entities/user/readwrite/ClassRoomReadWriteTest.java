@@ -4,13 +4,14 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.ClassRoomRepository;
 import at.fh.pupilmangement.entities.ClassRoom;
 import at.fh.pupilmangement.entities.RoomType;
 
 public class ClassRoomReadWriteTest extends AbstractReadWriteTest<ClassRoom>
 {
-	private static BaseRepository<ClassRoom> lowerPermissionRepository = new BaseRepository<ClassRoom>(ClassRoom.class,lowerPermissionUser);
-	private static BaseRepository<ClassRoom> adminPermissionRepository = new BaseRepository<ClassRoom>(ClassRoom.class,adminPermissionUser);
+	private static ClassRoomRepository lowerPermissionRepository = new ClassRoomRepository(lowerPermissionUser);
+	private static ClassRoomRepository adminPermissionRepository = new ClassRoomRepository(adminPermissionUser);
 	private static long lastTableId;
 	
 	@BeforeClass

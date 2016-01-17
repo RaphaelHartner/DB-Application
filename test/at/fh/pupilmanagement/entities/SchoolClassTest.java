@@ -8,18 +8,19 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.SchoolClassRepository;
 import at.fh.pupilmangement.entities.SchoolClass;
 
 public class SchoolClassTest
 {
-	private static BaseRepository<SchoolClass> schoolClassRepository;
+	private static SchoolClassRepository schoolClassRepository;
 	private SchoolClass currentTestSchoolClass;
 	private static long lastTableId;
 	
 	@BeforeClass
 	public static void classSetup()
 	{
-		schoolClassRepository = new BaseRepository<SchoolClass>(SchoolClass.class);
+		schoolClassRepository = new SchoolClassRepository();
 		lastTableId = BaseRepository.getLastTableId(SchoolClass.getSequenceName());
 	}
 	

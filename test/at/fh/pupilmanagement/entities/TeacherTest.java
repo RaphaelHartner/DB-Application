@@ -9,17 +9,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.TeacherRepository;
 import at.fh.pupilmangement.entities.Teacher;
 
 public class TeacherTest {
 
-	private static BaseRepository<Teacher> teacherRepository;
+	private static TeacherRepository teacherRepository;
 	private Teacher currentTestTeacher;
 	private static long lastTableId;
 
 	@BeforeClass
 	public static void classSetup(){
-		teacherRepository = new BaseRepository<Teacher>(Teacher.class);
+		teacherRepository = new TeacherRepository();
 		lastTableId = BaseRepository.getLastTableId(Teacher.getSequenceName());
 	}
 	

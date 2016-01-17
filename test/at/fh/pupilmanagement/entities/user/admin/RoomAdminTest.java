@@ -4,12 +4,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.RoomRepository;
 import at.fh.pupilmangement.entities.Room;
 import at.fh.pupilmangement.entities.RoomType;
 
 public class RoomAdminTest extends AbstractAdminTest<Room>
 {
-	private static BaseRepository<Room> adminPermissionRepository = new BaseRepository<Room>(Room.class,adminUser);
+	private static RoomRepository adminPermissionRepository = new RoomRepository(adminUser);
 	private static long lastTableId;
 	
 	@BeforeClass

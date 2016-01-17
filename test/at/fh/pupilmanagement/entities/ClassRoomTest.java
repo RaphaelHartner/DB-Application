@@ -8,19 +8,20 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.ClassRoomRepository;
 import at.fh.pupilmangement.entities.ClassRoom;
 import at.fh.pupilmangement.entities.RoomType;
 
 public class ClassRoomTest
 {
-	private static BaseRepository<ClassRoom> classRoomRepository;
+	private static ClassRoomRepository classRoomRepository;
 	private ClassRoom currentTestClassRoom;
 	private static long lastTableId;
 	
 	@BeforeClass
 	public static void classSetup()
 	{
-		classRoomRepository = new BaseRepository<ClassRoom>(ClassRoom.class);
+		classRoomRepository = new ClassRoomRepository();
 		lastTableId = BaseRepository.getLastTableId(ClassRoom.getSequenceName());
 	}
 	

@@ -6,11 +6,12 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import at.fh.pupilmanagement.repositories.BaseRepository;
+import at.fh.pupilmanagement.repositories.TeacherRepository;
 import at.fh.pupilmangement.entities.Teacher;
 
 public class TeacherAdminTest extends AbstractAdminTest<Teacher>
 {
-	private static BaseRepository<Teacher> adminPermissionRepository = new BaseRepository<Teacher>(Teacher.class,adminUser);
+	private static TeacherRepository adminPermissionRepository = new TeacherRepository(adminUser);
 	private static long lastTableId;
 	
 	@BeforeClass
