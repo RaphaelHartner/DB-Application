@@ -84,6 +84,8 @@ public class TeacherSchoolClassTest
 		thirdTestSchoolClass.addTeacher(anotherTestTeacher);		
 		
 		schoolClassRepository.saveToDb(currentTestSchoolClass);
+		schoolClassRepository.saveToDb(anotherTestSchoolClass);
+		schoolClassRepository.saveToDb(thirdTestSchoolClass);
 		
 		Collection<Teacher> teachers = new ArrayList<Teacher>();
 		teachers.add(currentTestTeacher);
@@ -125,7 +127,9 @@ public class TeacherSchoolClassTest
 		thirdTestTeacher.addSchoolClass(currentTestSchoolClass);
 		thirdTestTeacher.addSchoolClass(anotherTestSchoolClass);
 		
-		schoolClassRepository.saveToDb(currentTestSchoolClass);
+		teacherRepository.saveToDb(currentTestTeacher);
+		teacherRepository.saveToDb(anotherTestTeacher);
+		teacherRepository.saveToDb(thirdTestTeacher);
 		
 		Collection<SchoolClass> schoolClasses = new ArrayList<SchoolClass>();
 		schoolClasses.add(currentTestSchoolClass);

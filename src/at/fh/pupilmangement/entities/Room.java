@@ -92,7 +92,7 @@ public class Room extends BaseEntity
 		schoolClasses.add(schoolClass);
 	}
 	
-	public List<SchoolClass> getSchooolClasses(){
+	public List<SchoolClass> getSchoolClasses(){
 		return this.schoolClasses;
 	}
 

@@ -125,7 +125,7 @@ public class SchoolClass extends BaseEntity {
 		return pupils;
 	}
 
-	void addPupil(Pupil pupil) {
+	public void addPupil(Pupil pupil) {
 
 		if (pupil == null)
 			throw new IllegalArgumentException(

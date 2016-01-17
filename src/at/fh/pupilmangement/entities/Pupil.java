@@ -42,12 +42,11 @@ public class Pupil extends Person
 
 	public void setSchoolClass(SchoolClass schoolClass)
 	{
-		if (schoolClass == null)
-			throw new IllegalArgumentException(
-					"ERROR: CurrentClass couldn't be null!");
-
 		this.schoolClass = schoolClass;
+		if (schoolClass != null)
+		{
 		this.schoolClass.addPupil(this);
+		}
 	}
 
 	public short getYearOfEntry()
