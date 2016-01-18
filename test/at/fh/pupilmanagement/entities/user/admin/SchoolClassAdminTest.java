@@ -3,9 +3,9 @@ package at.fh.pupilmanagement.entities.user.admin;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import at.fh.pupilmanagement.entities.SchoolClass;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.SchoolClassRepository;
-import at.fh.pupilmangement.entities.SchoolClass;
 
 public class SchoolClassAdminTest extends AbstractAdminTest<SchoolClass>
 {

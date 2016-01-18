@@ -1,4 +1,4 @@
-package at.fh.pupilmangement.entities;
+package at.fh.pupilmanagement.entities;
 
 import java.util.ArrayList;
 import java.util.List;

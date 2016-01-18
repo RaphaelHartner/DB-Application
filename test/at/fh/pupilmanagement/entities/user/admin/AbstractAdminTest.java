@@ -5,9 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.entities.BaseEntity;
 import at.fh.pupilmanagement.models.User;
 import at.fh.pupilmanagement.repositories.BaseRepository;
-import at.fh.pupilmangement.entities.BaseEntity;
 
 public abstract class AbstractAdminTest<T extends BaseEntity>
 {

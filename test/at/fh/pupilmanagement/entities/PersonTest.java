@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.entities.Person;
 import at.fh.pupilmanagement.repositories.BaseRepository;
-import at.fh.pupilmangement.entities.Person;
 
 public class PersonTest
 {

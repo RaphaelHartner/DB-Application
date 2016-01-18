@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.entities.Teacher;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.TeacherRepository;
-import at.fh.pupilmangement.entities.Teacher;
 
 public class TeacherTest {
 

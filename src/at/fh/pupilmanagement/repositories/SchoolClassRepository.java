@@ -1,8 +1,8 @@
 package at.fh.pupilmanagement.repositories;
 
+import at.fh.pupilmanagement.entities.Pupil;
+import at.fh.pupilmanagement.entities.SchoolClass;
 import at.fh.pupilmanagement.models.User;
-import at.fh.pupilmangement.entities.Pupil;
-import at.fh.pupilmangement.entities.SchoolClass;
 
 public class SchoolClassRepository extends BaseRepository<SchoolClass>
 {

@@ -5,13 +5,13 @@ import java.util.GregorianCalendar;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import at.fh.pupilmanagement.entities.Person;
 import at.fh.pupilmanagement.repositories.BaseRepository;
-import at.fh.pupilmangement.entities.Person;
 
 public class PersonReadOnlyTest extends AbstractReadOnlyTest<Person>
 {
 	
-	private static BaseRepository<Person> lowerPermissionRepository = new BaseRepository<Person>(Person.class,lowerPermissionUser);
+	private static BaseRepository<Person> readerPermissionRepository = new BaseRepository<Person>(Person.class,readerPermissionUser);
 	private static BaseRepository<Person> adminPermissionRepository = new BaseRepository<Person>(Person.class,adminPermissionUser);
 	private static long lastTableId;
 	
@@ -24,14 +24,14 @@ public class PersonReadOnlyTest extends AbstractReadOnlyTest<Person>
 	public static void classTeardown()
 	{
 		BaseRepository.setSequenceValue(Person.getSequenceName(), lastTableId);
-		lowerPermissionRepository.closeConnetion();
+		readerPermissionRepository.closeConnetion();
 		adminPermissionRepository.closeConnetion();
 	}
 	
 	@Override
 	protected BaseRepository<Person> getLowerPermissionRepository()
 	{
-		return lowerPermissionRepository;
+		return readerPermissionRepository;
 	}
 
 	@Override

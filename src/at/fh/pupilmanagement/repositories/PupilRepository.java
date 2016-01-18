@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import at.fh.pupilmanagement.entities.Pupil;
 import at.fh.pupilmanagement.models.User;
-import at.fh.pupilmangement.entities.Pupil;
 
 public class PupilRepository extends BaseRepository<Pupil>
 {

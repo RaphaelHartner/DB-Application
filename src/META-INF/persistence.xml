@@ -3,13 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="PupilManagement">
-		<class>at.fh.pupilmangement.entities.Room</class>
-		<class>at.fh.pupilmangement.entities.Person</class>
-		<class>at.fh.pupilmangement.entities.Teacher</class>
-		<class>at.fh.pupilmangement.entities.Pupil</class>
-		<class>at.fh.pupilmangement.entities.ClassRoom</class>
-		<class>at.fh.pupilmangement.entities.SchoolClass</class>
-		<class>at.fh.pupilmangement.entities.BaseEntity</class>
+		<class>at.fh.pupilmanagement.entities.Room</class>
+		<class>at.fh.pupilmanagement.entities.Person</class>
+		<class>at.fh.pupilmanagement.entities.Teacher</class>
+		<class>at.fh.pupilmanagement.entities.Pupil</class>
+		<class>at.fh.pupilmanagement.entities.ClassRoom</class>
+		<class>at.fh.pupilmanagement.entities.SchoolClass</class>
+		<class>at.fh.pupilmanagement.entities.BaseEntity</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://10.65.1.37:5433/pupilmanagement" />

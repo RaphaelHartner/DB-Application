@@ -1,4 +1,4 @@
-package at.fh.pupilmangement.entities;
+package at.fh.pupilmanagement.entities;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

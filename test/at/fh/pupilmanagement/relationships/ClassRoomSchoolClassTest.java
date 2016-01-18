@@ -7,12 +7,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.entities.ClassRoom;
+import at.fh.pupilmanagement.entities.RoomType;
+import at.fh.pupilmanagement.entities.SchoolClass;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.ClassRoomRepository;
 import at.fh.pupilmanagement.repositories.SchoolClassRepository;
-import at.fh.pupilmangement.entities.ClassRoom;
-import at.fh.pupilmangement.entities.RoomType;
-import at.fh.pupilmangement.entities.SchoolClass;
 
 public class ClassRoomSchoolClassTest
 {

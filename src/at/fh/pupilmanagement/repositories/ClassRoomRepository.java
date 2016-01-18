@@ -1,7 +1,7 @@
 package at.fh.pupilmanagement.repositories;
 
+import at.fh.pupilmanagement.entities.ClassRoom;
 import at.fh.pupilmanagement.models.User;
-import at.fh.pupilmangement.entities.ClassRoom;
 
 public class ClassRoomRepository extends BaseRepository<ClassRoom>
 {

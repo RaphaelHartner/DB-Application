@@ -3,10 +3,10 @@ package at.fh.pupilmanagement.entities.user.admin;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import at.fh.pupilmanagement.entities.Room;
+import at.fh.pupilmanagement.entities.RoomType;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.RoomRepository;
-import at.fh.pupilmangement.entities.Room;
-import at.fh.pupilmangement.entities.RoomType;
 
 public class RoomAdminTest extends AbstractAdminTest<Room>
 {

@@ -11,11 +11,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.entities.Pupil;
+import at.fh.pupilmanagement.entities.SchoolClass;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.PupilRepository;
 import at.fh.pupilmanagement.repositories.SchoolClassRepository;
-import at.fh.pupilmangement.entities.Pupil;
-import at.fh.pupilmangement.entities.SchoolClass;
 
 public class PupilSchoolClassTest
 {
