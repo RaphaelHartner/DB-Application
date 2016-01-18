@@ -28,7 +28,7 @@ public class ClassRoomReadWriteTest extends AbstractReadWriteTest<ClassRoom>
 	}
 
 	@Override
-	protected BaseRepository<ClassRoom> getLowerPermissionRepository()
+	protected BaseRepository<ClassRoom> getWriterPermissionRepository()
 	{
 		return writerPermissionRepository;
 	}

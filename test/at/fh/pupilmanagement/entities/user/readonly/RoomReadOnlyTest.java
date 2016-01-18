@@ -29,7 +29,7 @@ public class RoomReadOnlyTest extends AbstractReadOnlyTest<Room>
 	}
 
 	@Override
-	protected BaseRepository<Room> getLowerPermissionRepository()
+	protected BaseRepository<Room> getReaderPermissionRepository()
 	{
 		return readerPermissionRepository;
 	}

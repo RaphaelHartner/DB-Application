@@ -29,7 +29,7 @@ public class PersonReadOnlyTest extends AbstractReadOnlyTest<Person>
 	}
 	
 	@Override
-	protected BaseRepository<Person> getLowerPermissionRepository()
+	protected BaseRepository<Person> getReaderPermissionRepository()
 	{
 		return readerPermissionRepository;
 	}

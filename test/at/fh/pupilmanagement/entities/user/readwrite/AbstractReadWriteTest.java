@@ -21,7 +21,7 @@ public abstract class AbstractReadWriteTest<T extends BaseEntity>
 	@Before
 	public void setup()
 	{
-		writerPermissionRepository = getLowerPermissionRepository();
+		writerPermissionRepository = getWriterPermissionRepository();
 		adminPermissionRepository = getAdminPermissionRepository();
 		templateEntity = getTemplateEntity();
 	}
@@ -106,11 +106,8 @@ public abstract class AbstractReadWriteTest<T extends BaseEntity>
 		return entity;
 	}
 
-	protected abstract BaseRepository<T> getLowerPermissionRepository();
-
+	protected abstract BaseRepository<T> getWriterPermissionRepository();
 	protected abstract BaseRepository<T> getAdminPermissionRepository();
-
 	protected abstract T getTemplateEntity();
-
 	protected abstract void modifyEntity(T entity);
 }

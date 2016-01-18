@@ -29,7 +29,7 @@ public class TeacherReadOnlyTest extends AbstractReadOnlyTest<Teacher>
 	}
 	
 	@Override
-	protected BaseRepository<Teacher> getLowerPermissionRepository()
+	protected BaseRepository<Teacher> getReaderPermissionRepository()
 	{
 		return readerPermissionRepository;
 	}

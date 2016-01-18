@@ -30,7 +30,7 @@ public class PersonReadWriteTest extends AbstractReadWriteTest<Person>
 	}
 
 	@Override
-	protected BaseRepository<Person> getLowerPermissionRepository()
+	protected BaseRepository<Person> getWriterPermissionRepository()
 	{
 		return writerPermissionRepository;
 	}

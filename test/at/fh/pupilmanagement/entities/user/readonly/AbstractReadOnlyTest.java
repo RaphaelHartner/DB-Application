@@ -21,7 +21,7 @@ public abstract class AbstractReadOnlyTest<T extends BaseEntity>
 	@Before
 	public void setup()
 	{
-		readerPermissionRepository = getLowerPermissionRepository();
+		readerPermissionRepository = getReaderPermissionRepository();
 		adminPermissionRepository = getAdminPermissionRepository();
 		templateEntity = getTemplateEntity();
 	}
@@ -97,7 +97,7 @@ public abstract class AbstractReadOnlyTest<T extends BaseEntity>
 		return entity;
 	}
 	
-	protected abstract BaseRepository<T> getLowerPermissionRepository();
+	protected abstract BaseRepository<T> getReaderPermissionRepository();
 	protected abstract BaseRepository<T> getAdminPermissionRepository();
 	protected abstract T getTemplateEntity();
 	protected abstract void modifyEntity(T entity);

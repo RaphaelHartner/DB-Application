@@ -27,7 +27,7 @@ public class SchoolClassReadWriteTest extends AbstractReadWriteTest<SchoolClass>
 	}
 
 	@Override
-	protected BaseRepository<SchoolClass> getLowerPermissionRepository()
+	protected BaseRepository<SchoolClass> getWriterPermissionRepository()
 	{
 		return writerPermissionRepository;
 	}

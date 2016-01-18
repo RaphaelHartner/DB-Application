@@ -28,7 +28,7 @@ public class ClassRoomReadOnlyTest extends AbstractReadOnlyTest<ClassRoom>
 	}
 
 	@Override
-	protected BaseRepository<ClassRoom> getLowerPermissionRepository()
+	protected BaseRepository<ClassRoom> getReaderPermissionRepository()
 	{
 		return readerPermissionRepository;
 	}

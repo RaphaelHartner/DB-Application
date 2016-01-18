@@ -29,7 +29,7 @@ public class PupilReadOnlyTest extends AbstractReadOnlyTest<Pupil>
 	}
 
 	@Override
-	protected BaseRepository<Pupil> getLowerPermissionRepository()
+	protected BaseRepository<Pupil> getReaderPermissionRepository()
 	{
 		return readerPermissionRepository;
 	}
