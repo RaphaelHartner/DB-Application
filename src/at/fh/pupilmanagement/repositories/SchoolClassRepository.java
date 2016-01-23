@@ -1,7 +1,13 @@
 package at.fh.pupilmanagement.repositories;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+
 import at.fh.pupilmanagement.models.User;
 import at.fh.pupilmangement.entities.Pupil;
+import at.fh.pupilmangement.entities.Room;
 import at.fh.pupilmangement.entities.SchoolClass;
 
 public class SchoolClassRepository extends BaseRepository<SchoolClass>
@@ -14,6 +20,15 @@ public class SchoolClassRepository extends BaseRepository<SchoolClass>
 		public SchoolClassRepository(User user)
 		{
 			super(SchoolClass.class, user);
+		}
+		
+		public List<Room> findSuitableRooms(long id)
+		{
+			TypedQuery<Room> query = getEntityManager().createNamedQuery(
+					"Room.findSuitableRooms", Room.class);
+			query.setParameter("id", id);
+			
+			return new ArrayList<Room>(query.getResultList());
 		}
 		
 		@Override

@@ -65,6 +65,5 @@ public class RoomFindByTypeTest
 	public static void classTeardown() {
 		roomRepository.closeConnetion();
 	}
-
 }
 
