@@ -30,6 +30,16 @@ public class PupilRepository extends BaseRepository<Pupil>
 		return query.getResultList();
 	}
 	
+	public List<Pupil> findAllClassRepeater()
+	{
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		TypedQuery<Pupil> query = getEntityManager().createNamedQuery(
+				"Pupil.findAllClassRepeater", Pupil.class);
+		query.setParameter("currentYear", 2016);
+		
+		return query.getResultList();
+	}
+	
 	@Override
 	public void deleteFromDb(Pupil pupil)
 	{
