@@ -18,8 +18,7 @@ import javax.persistence.Table;
 					+ "WHERE p.yearOfEntry = :entry"),
 		@NamedQuery(name = "Pupil.findAllClassRepeater", 
 			query = "SELECT p FROM Pupil p JOIN p.schoolClass c "
-				+ "WHERE (:currentYear - p.yearOfEntry) >= 4 AND "
-				+ "c.grade < 4"),
+				+ "WHERE (:currentYear - p.yearOfEntry) > c.grade")
 })
 public class Pupil extends Person {
 

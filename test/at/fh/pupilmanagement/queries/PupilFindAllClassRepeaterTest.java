@@ -5,8 +5,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.swing.RepaintManager;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -47,18 +45,18 @@ public class PupilFindAllClassRepeaterTest
 		schoolClassRepository.saveToDb(currentSchoolClass);
 		
 		Pupil firstFepeaterTestPupil = new Pupil("Raphael", "Hartner",
-				new GregorianCalendar(1994, 4, 23).getTime(), (short) 2012, currentSchoolClass);
+				new GregorianCalendar(1994, 4, 23).getTime(), (short) (Calendar.getInstance().get(Calendar.YEAR) - 4), currentSchoolClass);
 		pupilRepository.saveToDb(firstFepeaterTestPupil);
 		
 		Pupil secondRepeaterTestPupil = new Pupil("Georg", "Adelmann",
-				new GregorianCalendar(1994, 5, 6).getTime(), (short) 2011, currentSchoolClass);
+				new GregorianCalendar(1994, 5, 6).getTime(), (short) (Calendar.getInstance().get(Calendar.YEAR) - 5), currentSchoolClass);
 		pupilRepository.saveToDb(secondRepeaterTestPupil);
 		
 		repeaterPupils.add(firstFepeaterTestPupil);
 		repeaterPupils.add(secondRepeaterTestPupil);
 		
 		Pupil normalTestPupil = new Pupil("Martha", "Fahker",
-				new GregorianCalendar(1994, 12, 13).getTime(), (short) Calendar.getInstance().get(Calendar.YEAR)
+				new GregorianCalendar(1994, 12, 13).getTime(), (short) (Calendar.getInstance().get(Calendar.YEAR) - 3) 
 				, currentSchoolClass);
 		pupilRepository.saveToDb(normalTestPupil);
 		
