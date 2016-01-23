@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.3.5
 -- Dumped by pg_dump version 9.3.1
--- Started on 2016-01-17 20:24:34
+-- Started on 2016-01-23 10:52:24
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -12,6 +12,45 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+
+DROP DATABASE pupilmanagement;
+--
+-- TOC entry 2886 (class 1262 OID 22904)
+-- Name: pupilmanagement; Type: DATABASE; Schema: -; Owner: pupilmanagement
+--
+
+CREATE DATABASE pupilmanagement WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
+
+
+ALTER DATABASE pupilmanagement OWNER TO pupilmanagement;
+
+\connect pupilmanagement
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 7 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- TOC entry 2887 (class 0 OID 0)
+-- Dependencies: 7
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
 
 --
 -- TOC entry 6 (class 2615 OID 24077)
@@ -24,12 +63,29 @@ CREATE SCHEMA pupilmanagement;
 ALTER SCHEMA pupilmanagement OWNER TO pupilmanagement;
 
 --
--- TOC entry 2886 (class 0 OID 0)
+-- TOC entry 2889 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: SCHEMA pupilmanagement; Type: COMMENT; Schema: -; Owner: pupilmanagement
 --
 
 COMMENT ON SCHEMA pupilmanagement IS 'schema for the pupil management project';
+
+
+--
+-- TOC entry 182 (class 3079 OID 12617)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2891 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 SET search_path = pupilmanagement, pg_catalog;
@@ -214,12 +270,12 @@ ALTER TABLE pupilmanagement.teacher OWNER TO pupilmanagement;
 
 
 --
--- TOC entry 2899 (class 0 OID 0)
+-- TOC entry 2903 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: person_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
-SELECT pg_catalog.setval('person_sequence', 284, true);
+SELECT pg_catalog.setval('person_sequence', 315, true);
 
 
 --
@@ -239,12 +295,12 @@ SELECT pg_catalog.setval('person_sequence', 284, true);
 
 
 --
--- TOC entry 2900 (class 0 OID 0)
+-- TOC entry 2904 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: room_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
-SELECT pg_catalog.setval('room_sequence', 273, true);
+SELECT pg_catalog.setval('room_sequence', 284, true);
 
 
 --
@@ -264,12 +320,12 @@ SELECT pg_catalog.setval('room_sequence', 273, true);
 
 
 --
--- TOC entry 2901 (class 0 OID 0)
+-- TOC entry 2905 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: schoolclass_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
-SELECT pg_catalog.setval('schoolclass_sequence', 293, true);
+SELECT pg_catalog.setval('schoolclass_sequence', 316, true);
 
 
 --
@@ -406,12 +462,12 @@ ALTER TABLE ONLY room
 
 
 --
--- TOC entry 2757 (class 2606 OID 24143)
+-- TOC entry 2757 (class 2606 OID 24214)
 -- Name: pupil_schoolclass_id_fkey; Type: FK CONSTRAINT; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
 ALTER TABLE ONLY pupil
-    ADD CONSTRAINT pupil_schoolclass_id_fkey FOREIGN KEY (schoolclass_id) REFERENCES schoolclass(id);
+    ADD CONSTRAINT pupil_schoolclass_id_fkey FOREIGN KEY (schoolclass_id) REFERENCES schoolclass(id) ON DELETE SET NULL;
 
 
 --
@@ -469,7 +525,19 @@ ALTER TABLE ONLY schoolclass_teacher
 
 
 --
--- TOC entry 2887 (class 0 OID 0)
+-- TOC entry 2888 (class 0 OID 0)
+-- Dependencies: 7
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT USAGE ON SCHEMA public TO PUBLIC;
+
+
+--
+-- TOC entry 2890 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: pupilmanagement; Type: ACL; Schema: -; Owner: pupilmanagement
 --
@@ -482,7 +550,7 @@ GRANT USAGE ON SCHEMA pupilmanagement TO pupilmanagement_reader_role;
 
 
 --
--- TOC entry 2888 (class 0 OID 0)
+-- TOC entry 2892 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: room_sequence; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -495,7 +563,7 @@ GRANT UPDATE ON SEQUENCE room_sequence TO pupilmanagement_writer_role;
 
 
 --
--- TOC entry 2889 (class 0 OID 0)
+-- TOC entry 2893 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: classroom; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -509,7 +577,7 @@ GRANT DELETE ON TABLE classroom TO pupilmanagement_admin_role;
 
 
 --
--- TOC entry 2890 (class 0 OID 0)
+-- TOC entry 2894 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: person_sequence; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -522,7 +590,7 @@ GRANT UPDATE ON SEQUENCE person_sequence TO pupilmanagement_writer_role;
 
 
 --
--- TOC entry 2891 (class 0 OID 0)
+-- TOC entry 2895 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: person; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -536,7 +604,7 @@ GRANT DELETE ON TABLE person TO pupilmanagement_admin_role;
 
 
 --
--- TOC entry 2892 (class 0 OID 0)
+-- TOC entry 2896 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: pupil; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -550,7 +618,7 @@ GRANT DELETE ON TABLE pupil TO pupilmanagement_admin_role;
 
 
 --
--- TOC entry 2893 (class 0 OID 0)
+-- TOC entry 2897 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: room; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -564,7 +632,7 @@ GRANT DELETE ON TABLE room TO pupilmanagement_admin_role;
 
 
 --
--- TOC entry 2894 (class 0 OID 0)
+-- TOC entry 2898 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: schoolclass_sequence; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -577,7 +645,7 @@ GRANT UPDATE ON SEQUENCE schoolclass_sequence TO pupilmanagement_writer_role;
 
 
 --
--- TOC entry 2895 (class 0 OID 0)
+-- TOC entry 2899 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: schoolclass; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -591,7 +659,7 @@ GRANT DELETE ON TABLE schoolclass TO pupilmanagement_admin_role;
 
 
 --
--- TOC entry 2896 (class 0 OID 0)
+-- TOC entry 2900 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: schoolclass_room; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -605,7 +673,7 @@ GRANT DELETE ON TABLE schoolclass_room TO pupilmanagement_admin_role;
 
 
 --
--- TOC entry 2897 (class 0 OID 0)
+-- TOC entry 2901 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: schoolclass_teacher; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -619,7 +687,7 @@ GRANT DELETE ON TABLE schoolclass_teacher TO pupilmanagement_admin_role;
 
 
 --
--- TOC entry 2898 (class 0 OID 0)
+-- TOC entry 2902 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: teacher; Type: ACL; Schema: pupilmanagement; Owner: pupilmanagement
 --
@@ -632,7 +700,7 @@ GRANT INSERT,UPDATE ON TABLE teacher TO pupilmanagement_writer_role;
 GRANT DELETE ON TABLE teacher TO pupilmanagement_admin_role;
 
 
--- Completed on 2016-01-17 20:24:46
+-- Completed on 2016-01-23 10:52:25
 
 --
 -- PostgreSQL database dump complete
