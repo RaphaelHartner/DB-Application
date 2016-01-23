@@ -57,7 +57,7 @@ public class SchoolClassFindSuitableRooms
 		roomRepository.saveToDb(anotherTestRoom);
 		thirdTestRoom = new Room(2, "B.2.12", RoomType.Chemielabor);
 		roomRepository.saveToDb(thirdTestRoom);
-		
+	
 		currentTestSchoolClass = new SchoolClass("A", 2);
 		schoolClassRepository.saveToDb(currentTestSchoolClass);
 		
@@ -67,25 +67,25 @@ public class SchoolClassFindSuitableRooms
 		pupilRepository.saveToDb(anotherTestPupil);
 		thirdTestPupil = new Pupil("Walter", "Ferge", new GregorianCalendar(1994, 12, 12).getTime(), (short)2015, currentTestSchoolClass);
 		pupilRepository.saveToDb(thirdTestPupil);
-		
-		schoolClassRepository.saveToDb(currentTestSchoolClass);
 	}
 
 	@Test
 	public void testFindSuitableRooms()
-	{
+	{					
 		List<Room> suitableRooms = new ArrayList<Room>();
 		suitableRooms.add(currentTestRoom);
 		suitableRooms.add(anotherTestRoom);
+
+		Assert.assertEquals(suitableRooms, schoolClassRepository.findSuitableRooms(currentTestSchoolClass.getId()));
 		
-		//Assert.assertEquals(suitableRooms, schoolClassRepository.findSuitableRooms(currentTestSchoolClass.getId()));
+		schoolClassRepository.deleteFromDb(currentTestSchoolClass);
 	}
 
 	@After
 	public void teardown() {
-		roomRepository.rollbackInsertedData(Room.getSequenceName(), lastRoomTableId);
 		pupilRepository.rollbackInsertedData(Pupil.getSequenceName(), lastPupilTableId);
 		schoolClassRepository.rollbackInsertedData(SchoolClass.getSequenceName(), lastSchoolClassTableId);
+		roomRepository.rollbackInsertedData(Room.getSequenceName(), lastRoomTableId);
 	}
 	
 	@AfterClass

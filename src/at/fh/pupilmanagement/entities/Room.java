@@ -113,8 +113,32 @@ public class Room extends BaseEntity
 	{
 		return "Room: " + getPosition() + ", " + getMaxPupils();
 	}
-	
+
 	public static String getSequenceName(){
 		return ROOM_SEQUENCE;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Room))
+			return false;
+		Room other = (Room) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 }

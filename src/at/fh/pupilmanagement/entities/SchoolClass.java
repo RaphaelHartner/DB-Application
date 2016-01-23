@@ -7,11 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Room.findSuitableRooms",
+	query="SELECT r FROM Room r " +
+		"WHERE r.maxPupils >= " +
+		"(SELECT COUNT(p) FROM Pupil p " +
+		"JOIN p.schoolClass s " +
+		"WHERE s.id = :id)")
+})
 public class SchoolClass extends BaseEntity {
 	private static final String SCHOOLCLASS_SEQUENCE = "schoolclass_sequence";
 

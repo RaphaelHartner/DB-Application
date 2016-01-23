@@ -1,6 +1,14 @@
 package at.fh.pupilmanagement.repositories;
 
 import at.fh.pupilmanagement.models.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+
+import at.fh.pupilmanagement.entities.Pupil;
+import at.fh.pupilmanagement.entities.Room;
 import at.fh.pupilmanagement.entities.SchoolClass;
 
 public class SchoolClassRepository extends BaseRepository<SchoolClass>
@@ -15,9 +23,22 @@ public class SchoolClassRepository extends BaseRepository<SchoolClass>
 			super(SchoolClass.class, user);
 		}
 		
+		public List<Room> findSuitableRooms(long id)
+		{
+			TypedQuery<Room> query = getEntityManager().createNamedQuery(
+					"Room.findSuitableRooms", Room.class);
+			query.setParameter("id", id);
+			
+			return new ArrayList<Room>(query.getResultList());
+		}
+		
 		@Override
 		public void deleteFromDb(SchoolClass schoolClass)
 		{
+			for (Pupil pupil : schoolClass.getPupils())
+			{
+				pupil.setSchoolClass(null);
+			}
 			schoolClass.setClassTeacher(null);
 			schoolClass.setClassRoom(null);
 			schoolClass = getEntityManager().merge(schoolClass);
