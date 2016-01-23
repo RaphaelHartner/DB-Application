@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.entities.ClassRoom;
+import at.fh.pupilmanagement.entities.RoomType;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.ClassRoomRepository;
-import at.fh.pupilmangement.entities.ClassRoom;
-import at.fh.pupilmangement.entities.RoomType;
 
 public class ClassRoomTest
 {

@@ -8,8 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import at.fh.pupilmanagement.entities.BaseEntity;
 import at.fh.pupilmanagement.models.User;
-import at.fh.pupilmangement.entities.BaseEntity;
 
 public class BaseRepository<T extends BaseEntity>
 {

@@ -5,9 +5,9 @@ import java.util.GregorianCalendar;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import at.fh.pupilmanagement.entities.Teacher;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.TeacherRepository;
-import at.fh.pupilmangement.entities.Teacher;
 
 public class TeacherAdminTest extends AbstractAdminTest<Teacher>
 {

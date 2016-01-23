@@ -12,9 +12,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.entities.Pupil;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.PupilRepository;
-import at.fh.pupilmangement.entities.Pupil;
 
 public class PupilFindAllEntryThisYearTest
 {

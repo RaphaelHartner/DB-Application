@@ -5,15 +5,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import at.fh.pupilmanagement.entities.BaseEntity;
 import at.fh.pupilmanagement.models.User;
 import at.fh.pupilmanagement.repositories.BaseRepository;
-import at.fh.pupilmangement.entities.BaseEntity;
 
 public abstract class AbstractReadWriteTest<T extends BaseEntity>
 {
-	protected final static User lowerPermissionUser = new User("pupilmanagement_writer", "pupilmanagement_writer");
+	protected final static User writerPermissionUser = new User("pupilmanagement_writer", "pupilmanagement_writer");
 	protected final static User adminPermissionUser = new User("pupilmanagement_admin", "harade14");
-	protected BaseRepository<T> lowerPermissionRepository;
+	protected BaseRepository<T> writerPermissionRepository;
 	protected BaseRepository<T> adminPermissionRepository;
 	protected long lastTableId;
 	protected T templateEntity;
@@ -21,7 +21,7 @@ public abstract class AbstractReadWriteTest<T extends BaseEntity>
 	@Before
 	public void setup()
 	{
-		lowerPermissionRepository = getLowerPermissionRepository();
+		writerPermissionRepository = getWriterPermissionRepository();
 		adminPermissionRepository = getAdminPermissionRepository();
 		templateEntity = getTemplateEntity();
 	}
@@ -31,7 +31,7 @@ public abstract class AbstractReadWriteTest<T extends BaseEntity>
 	{
 		try
 		{
-			lowerPermissionRepository.findAll();
+			writerPermissionRepository.findAll();
 		} catch (Exception e)
 		{
 			Assert.fail();
@@ -46,7 +46,7 @@ public abstract class AbstractReadWriteTest<T extends BaseEntity>
 
 		try
 		{
-			lowerPermissionRepository.saveToDb(entity);
+			writerPermissionRepository.saveToDb(entity);
 		} catch (Exception e)
 		{
 			Assert.fail(e.getMessage());
@@ -64,12 +64,12 @@ public abstract class AbstractReadWriteTest<T extends BaseEntity>
 	public void testUpdateOperation()
 	{
 		T entity = insertEntity();
-		T insertedEntity = lowerPermissionRepository.find(entity.getId());
+		T insertedEntity = writerPermissionRepository.find(entity.getId());
 		modifyEntity(insertedEntity);
 
 		try
 		{
-			lowerPermissionRepository.commit();
+			writerPermissionRepository.commit();
 		} catch (Exception e)
 		{
 			Assert.fail(e.getMessage());
@@ -79,11 +79,11 @@ public abstract class AbstractReadWriteTest<T extends BaseEntity>
 	@Test
 	public void testDeleteOperation()
 	{
-		T insertedEntity = lowerPermissionRepository.find(insertEntity().getId());
+		T insertedEntity = writerPermissionRepository.find(insertEntity().getId());
 
 		try
 		{
-			lowerPermissionRepository.deleteFromDb(insertedEntity);
+			writerPermissionRepository.deleteFromDb(insertedEntity);
 			Assert.fail();
 
 		} catch (Exception e)
@@ -106,11 +106,8 @@ public abstract class AbstractReadWriteTest<T extends BaseEntity>
 		return entity;
 	}
 
-	protected abstract BaseRepository<T> getLowerPermissionRepository();
-
+	protected abstract BaseRepository<T> getWriterPermissionRepository();
 	protected abstract BaseRepository<T> getAdminPermissionRepository();
-
 	protected abstract T getTemplateEntity();
-
 	protected abstract void modifyEntity(T entity);
 }

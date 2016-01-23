@@ -3,14 +3,14 @@ package at.fh.pupilmanagement.entities.user.readwrite;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import at.fh.pupilmanagement.entities.Room;
+import at.fh.pupilmanagement.entities.RoomType;
 import at.fh.pupilmanagement.repositories.BaseRepository;
 import at.fh.pupilmanagement.repositories.RoomRepository;
-import at.fh.pupilmangement.entities.Room;
-import at.fh.pupilmangement.entities.RoomType;
 
 public class RoomReadWriteTest extends AbstractReadWriteTest<Room>
 {
-	private static RoomRepository lowerPermissionRepository = new RoomRepository(lowerPermissionUser);
+	private static RoomRepository writerPermissionRepository = new RoomRepository(writerPermissionUser);
 	private static RoomRepository adminPermissionRepository = new RoomRepository(adminPermissionUser);
 	private static long lastTableId;
 	
@@ -23,14 +23,14 @@ public class RoomReadWriteTest extends AbstractReadWriteTest<Room>
 	public static void classTeardown()
 	{
 		BaseRepository.setSequenceValue(Room.getSequenceName(), lastTableId);
-		lowerPermissionRepository.closeConnetion();
+		writerPermissionRepository.closeConnetion();
 		adminPermissionRepository.closeConnetion();
 	}
 
 	@Override
-	protected BaseRepository<Room> getLowerPermissionRepository()
+	protected BaseRepository<Room> getWriterPermissionRepository()
 	{
-		return lowerPermissionRepository;
+		return writerPermissionRepository;
 	}
 
 	@Override

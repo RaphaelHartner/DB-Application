@@ -1,4 +1,4 @@
-package at.fh.pupilmangement.entities;
+package at.fh.pupilmanagement.entities;
 
 public enum RoomType
 {
