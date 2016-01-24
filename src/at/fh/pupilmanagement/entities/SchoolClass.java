@@ -23,6 +23,7 @@ import javax.persistence.SequenceGenerator;
 		"WHERE s.id = :id)")
 })
 public class SchoolClass extends BaseEntity {
+
 	private static final String SCHOOLCLASS_SEQUENCE = "schoolclass_sequence";
 
 	@SequenceGenerator(name = "ClassIdGenerator", sequenceName = SCHOOLCLASS_SEQUENCE, allocationSize = 1)
@@ -155,5 +156,29 @@ public class SchoolClass extends BaseEntity {
 
 	public static String getSequenceName() {
 		return SCHOOLCLASS_SEQUENCE;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof SchoolClass))
+			return false;
+		SchoolClass other = (SchoolClass) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 }

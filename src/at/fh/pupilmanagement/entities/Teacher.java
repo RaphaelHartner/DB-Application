@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue(value = "teacher")
+
 public class Teacher extends Person {
 
 	private String abbreviation;
@@ -40,7 +41,7 @@ public class Teacher extends Person {
 		return schoolclasses;
 	}
 
-	public void addSchoolClass(SchoolClass schoolClass) {
+	void addSchoolClass(SchoolClass schoolClass) {
 		if (schoolClass == null)
 			throw new IllegalArgumentException(
 					"ERROR: Couldn't add NULL to classes!");

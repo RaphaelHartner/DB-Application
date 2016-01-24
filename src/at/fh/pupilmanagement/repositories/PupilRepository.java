@@ -35,7 +35,7 @@ public class PupilRepository extends BaseRepository<Pupil>
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		TypedQuery<Pupil> query = getEntityManager().createNamedQuery(
 				"Pupil.findAllClassRepeater", Pupil.class);
-		query.setParameter("currentYear", 2016);
+		query.setParameter("currentYear", year);
 		
 		return query.getResultList();
 	}

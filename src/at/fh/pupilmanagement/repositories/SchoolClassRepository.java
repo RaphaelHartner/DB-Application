@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import at.fh.pupilmanagement.entities.Pupil;
 import at.fh.pupilmanagement.entities.Room;
 import at.fh.pupilmanagement.entities.SchoolClass;
+import at.fh.pupilmanagement.entities.Teacher;
 
 public class SchoolClassRepository extends BaseRepository<SchoolClass>
 {
@@ -38,6 +39,10 @@ public class SchoolClassRepository extends BaseRepository<SchoolClass>
 			for (Pupil pupil : schoolClass.getPupils())
 			{
 				pupil.setSchoolClass(null);
+			}
+			for (Teacher teacher : schoolClass.getTeachers())
+			{
+				teacher.getSchoolClasses().remove(schoolClass);
 			}
 			schoolClass.setClassTeacher(null);
 			schoolClass.setClassRoom(null);

@@ -108,42 +108,6 @@ public class TeacherSchoolClassTest
 		schoolClassRepository.deleteFromDb(thirdTestSchoolClass);
 	}
 	
-	@Test
-	public void TestConnectTeacherToSchoolClass()
-	{
-		SchoolClass anotherTestSchoolClass = new SchoolClass("C", 3);
-		schoolClassRepository.saveToDb(anotherTestSchoolClass);
-		
-		Teacher anotherTestTeacher = new Teacher("Peter", "Moser", new GregorianCalendar(1970, 10, 10).getTime(), "MosP");
-		teacherRepository.saveToDb(anotherTestTeacher);
-		
-		Teacher thirdTestTeacher = new Teacher("Herbert", "Berthod", new GregorianCalendar(1955, 2, 3).getTime(), "BerH");
-		teacherRepository.saveToDb(thirdTestTeacher);
-		
-		currentTestTeacher.addSchoolClass(currentTestSchoolClass);
-		currentTestTeacher.addSchoolClass(anotherTestSchoolClass);
-		anotherTestTeacher.addSchoolClass(currentTestSchoolClass);
-		anotherTestTeacher.addSchoolClass(anotherTestSchoolClass);
-		thirdTestTeacher.addSchoolClass(currentTestSchoolClass);
-		thirdTestTeacher.addSchoolClass(anotherTestSchoolClass);
-		
-		teacherRepository.saveToDb(currentTestTeacher);
-		teacherRepository.saveToDb(anotherTestTeacher);
-		teacherRepository.saveToDb(thirdTestTeacher);
-		
-		Collection<SchoolClass> schoolClasses = new ArrayList<SchoolClass>();
-		schoolClasses.add(currentTestSchoolClass);
-		schoolClasses.add(anotherTestSchoolClass);
-		
-		Assert.assertEquals(schoolClasses, currentTestTeacher.getSchoolClasses());
-		Assert.assertEquals(schoolClasses, anotherTestTeacher.getSchoolClasses());
-		Assert.assertEquals(schoolClasses, thirdTestTeacher.getSchoolClasses());
-		
-		teacherRepository.deleteFromDb(anotherTestTeacher);
-		teacherRepository.deleteFromDb(thirdTestTeacher);
-		schoolClassRepository.deleteFromDb(anotherTestSchoolClass);
-	}
-	
 	@Test(expected = Exception.class)
 	public void TestConnectTwoClassTeachersToSchoolClass() 
 	{

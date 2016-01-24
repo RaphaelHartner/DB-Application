@@ -77,14 +77,12 @@ public class SchoolClassFindSuitableRooms
 		suitableRooms.add(anotherTestRoom);
 
 		Assert.assertEquals(suitableRooms, schoolClassRepository.findSuitableRooms(currentTestSchoolClass.getId()));
-		
-		schoolClassRepository.deleteFromDb(currentTestSchoolClass);
 	}
 
 	@After
 	public void teardown() {
-		pupilRepository.rollbackInsertedData(Pupil.getSequenceName(), lastPupilTableId);
 		schoolClassRepository.rollbackInsertedData(SchoolClass.getSequenceName(), lastSchoolClassTableId);
+		pupilRepository.rollbackInsertedData(Pupil.getSequenceName(), lastPupilTableId);
 		roomRepository.rollbackInsertedData(Room.getSequenceName(), lastRoomTableId);
 	}
 	
