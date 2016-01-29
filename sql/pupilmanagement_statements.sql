@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.3.5
 -- Dumped by pg_dump version 9.3.1
--- Started on 2016-01-23 10:52:24
+-- Started on 2016-01-24 22:06:28
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -275,7 +275,7 @@ ALTER TABLE pupilmanagement.teacher OWNER TO pupilmanagement;
 -- Name: person_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
-SELECT pg_catalog.setval('person_sequence', 315, true);
+SELECT pg_catalog.setval('person_sequence', 332, true);
 
 
 --
@@ -300,7 +300,7 @@ SELECT pg_catalog.setval('person_sequence', 315, true);
 -- Name: room_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
-SELECT pg_catalog.setval('room_sequence', 284, true);
+SELECT pg_catalog.setval('room_sequence', 288, true);
 
 
 --
@@ -325,7 +325,7 @@ SELECT pg_catalog.setval('room_sequence', 284, true);
 -- Name: schoolclass_sequence; Type: SEQUENCE SET; Schema: pupilmanagement; Owner: pupilmanagement
 --
 
-SELECT pg_catalog.setval('schoolclass_sequence', 316, true);
+SELECT pg_catalog.setval('schoolclass_sequence', 339, true);
 
 
 --
@@ -700,7 +700,7 @@ GRANT INSERT,UPDATE ON TABLE teacher TO pupilmanagement_writer_role;
 GRANT DELETE ON TABLE teacher TO pupilmanagement_admin_role;
 
 
--- Completed on 2016-01-23 10:52:25
+-- Completed on 2016-01-24 22:06:40
 
 --
 -- PostgreSQL database dump complete
